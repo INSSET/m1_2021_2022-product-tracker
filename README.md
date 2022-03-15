@@ -15,7 +15,7 @@ Voici un schéma récapitulatif de l’architecture de l’application :
 - [DB] créer le modèle de données → **TOUS**
 - [DB] Add des fixtures → **Mohammed khechini**
 - [FRONT] Créer une maquette des différentes pages du site → **Esteban**
-- [FRONT] Initialisation du projet WEB Front → **Samy**
+- [FRONT] Initialisation du projet WEB Front → **Samy** ✅
 - [AUTH] initialisation du projet auth → **Mohammed BC, Mohammed Salih**
 - [BACK] Initialisation du projet WEB API → **Nicolas**
 - [INIT] Scrapper AMAZON développement d’un cas de test avec une url en dure → **Théo**
