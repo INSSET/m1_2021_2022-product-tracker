@@ -1,0 +1,43 @@
+# This workflow will do a clean install of node dependencies,
+# Build the source code
+# Run tests across different versions of node
+
+name: Frontend React CI
+
+on:
+  push:
+    branches: [prod-front]
+  pull_request:
+    branches: [prod-front]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [14.x]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install dependencies
+        run: |
+          cd service.front/
+          npm install
+
+      - name: Build
+        run: |
+          cd service.front/
+          npm run build
+
+      - name: Run the tests
+        run: |
+          cd service.front/
+          npm test
