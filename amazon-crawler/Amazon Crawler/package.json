@@ -1,8 +1,9 @@
 {
   "name": "amazon-crawler",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A crawler for Amazon products (gets the price of one product we're asked about).",
   "main": "index.js",
+  "type": "module",
   "dependencies": {
     "puppeteer": "^13.5.2",
     "puppeteer-core": "^13.5.2"
@@ -11,7 +12,7 @@
     "nodemon": "^2.0.15"
   },
   "scripts": {
-    "start": "node index.js"
+    "myScript": "node -e 'require(\"./index\").getPrice()'"
   },
   "repository": {
     "type": "git",

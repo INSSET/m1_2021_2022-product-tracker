@@ -6,7 +6,9 @@
 
 ## Techno à utiliser
 
-​	Texte ici
+​	J’avais initialement pensé à faire une application C# pour scrap les données du site, vu que j’en fais au travail… Mais j’ai finalement trouvé que cette solution était un peu comme un bulldozer pour une tâche aussi «petite» que récupérer le prix d’un produit donné sur Amazon.
+
+J’ai finalement changé d’idée pour créer un petit module NodeJS, qui utiliserait **Puppeteer** pour effectuer la tâche. La solution est toute légère, plutôt rapide, et plus simple à comprendre pour certains autres (donc plus facile à maintenir).
 
  
 
@@ -4009,10 +4011,12 @@ Le problème que j’aurais avec cette API est limitée sur le nombre d’appels
 
 Cela coûtera 9$ par mois (hors taxes j’imagine) pour avoir accès à 500 requêtes par mois.
 
-![image-20220328011230190](C:\Users\tocra\AppData\Roaming\Typora\typora-user-images\image-20220328011230190.png)
+![image-20220328011230190](Étude.assets/image-20220328011230190.png)
 
 
 
 ### Scrapping
 
 ​	Autrement, nous pourrions simplement effectuer du **scrapping HTML** sur le site... Mais cela nous imposerait tout un jeu du *chat et de la souris* avec la détection de robots d’Amazon, leur présentation de site qui peut varier avec le temps, des balises qui changeraient de nom... C’est un jeu qui s’avèrera très compliqué sans doute, mais au moins il ne nous imposera pas de payer pour récupérer les informations.
+
+Ceci dit, développer une solution de scrapping basique est assez simple grâce à des librairies comme **Puppeteer**.
