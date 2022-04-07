@@ -1,0 +1,26 @@
+{
+  "name": "tracker-back",
+  "version": "1.0.0",
+  "description": "Back end du projet Product Tracker Master CCM1 2021-2022",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon index.js",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/INSSET/m1_2021_2022-product-tracker.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/INSSET/m1_2021_2022-product-tracker/issues"
+  },
+  "homepage": "https://github.com/INSSET/m1_2021_2022-product-tracker#readme",
+  "dependencies": {
+    "dotenv": "^16.0.0",
+    "express": "^4.17.3",
+    "nodemon": "^2.0.15"
+  }
+}
