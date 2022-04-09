@@ -1,3 +1,5 @@
+const getPrice = require("./getPrice");
+
 describe("getPrice testing", function () {
   test("a specific product should have its true price", () => {
     expect(
