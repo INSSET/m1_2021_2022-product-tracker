@@ -9,10 +9,12 @@
     "puppeteer-core": "^13.5.2"
   },
   "devDependencies": {
+    "jest": "^27.5.1",
     "nodemon": "^2.0.15"
   },
   "scripts": {
-    "myScript": "node -e 'require(\"./index\").getPrice()'"
+    "myScript": "node -e 'require(\"./index\").getPrice()'",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
