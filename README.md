@@ -19,3 +19,16 @@ Voici un schéma récapitulatif de l’architecture de l’application :
 - [AUTH] initialisation du projet auth → **Mohammed BC, Mohammed Salih**
 - [BACK] Initialisation du projet WEB API → **Nicolas**
 - [INIT] Scrapper AMAZON développement d’un cas de test avec une url en dure → **Théo**
+
+# Sprint 2
+
+- [FRONT | AUTH | BACK] Page de Login et Register fonctionnelles **(Samy + Nicolas)**
+- [SCRAPPER] Scrapper AliExpress **(Esteban)**
+- [SCRAPPPER] Scrapper Boulanger **(Theo)**
+- [AUTH] Passer le token dans le header (route /verify) (**Mohammed BC)**
+- [SCRAPPER MANAGER] Développer l’api scrapper manager qui tous les X temps va fetch la table produit et va récupérer les dernières prix et les insérer en base (de façon asynchrone de préférence) **(Mohammed Salih)**
+- [FRONT] Créer le Dashboard qui liste les produits traqués **(SAMY)**
+- [DEPLOYEMENT] Deployer tous les pods dans un cluster Kubernetes + creer la config (**Mohammed BC)**
+- [SQL] Creer les users SQL pour les différents services **(Mohammed khechini)**
+- [ENV] Regarder pour créer un “Vault” un env qui est commun a toutes les application pour éviter la redondance du DB_HOST par exemple. **(LIBRE)**
+- [NOTIFIER] Creer le projet Notifier et commencer a le coder **(LIBRE)**
