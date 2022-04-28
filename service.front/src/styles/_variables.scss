@@ -1,0 +1,12 @@
+$nav-height: 100px;
+$footer-height: 150px;
+$main-height: calc(100vh - calc($nav-height + $footer-height));
+
+// Colors
+$black: #000;
+$white: #fff;
+$blue: #3963cc;
+$grey-lighter: #f3f3f3;
+
+// Body
+$body-background: $grey-lighter;
