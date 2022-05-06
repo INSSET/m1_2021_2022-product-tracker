@@ -8,6 +8,7 @@ export default function Layout({ children }) {
   useEffect(() => {
     import('bootstrap/dist/js/bootstrap')
   }, [])
+
   return (
     <>
       <Header />
