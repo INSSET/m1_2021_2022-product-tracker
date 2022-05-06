@@ -1,10 +1,11 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import 'react-toastify/dist/ReactToastify.css'
 import { ToastContainer, toast } from 'react-toastify'
 import Product from '../../components/product'
 import { IoIosAddCircle } from 'react-icons/io'
 import axios from 'axios'
 import Modal from 'react-modal'
+import axiosConfig from '../../axiosConfig'
 
 const customStyles = {
   content: {
@@ -23,30 +24,29 @@ export default function Dashboard() {
   const [open, setOpen] = useState(false)
   const closeModal = () => setOpen(false)
 
-  const getProducts = useCallback(async () => {
-    await axios
-      .get('/api/products', {
-        key_authentification: JSON.stringify('KEY'),
-      })
-      .then((response) => {
-        if (response && response.data) {
-          /*
-           * Response format accepted : [{product: 'product', seller: 'seller', dateAdded: '01/05/2022', website: 'amazon'}, ...]
-           */
-          setProducts(response.data)
-        }
-      })
-      .catch((err) => {
-        toast.error('Erreur de récupération des produits', 'error')
-        console.error(`Error: ${err}`)
-        fakeDataProducts()
-      })
-  }, [])
-
   useEffect(() => {
+    async function getProducts() {
+      await axiosConfig
+        .get('/products', {
+          key_authentification: JSON.stringify('KEY'),
+        })
+        .then((response) => {
+          if (response && response.data) {
+            /*
+             * Response format accepted : [{product: 'product', seller: 'seller', dateAdded: '01/05/2022', website: 'amazon'}, ...]
+             */
+            setProducts(response.data)
+          }
+        })
+        .catch((err) => {
+          toast.error('Erreur de récupération des produits', 'error')
+          console.error(`Error: ${err}`)
+          fakeDataProducts()
+        })
+    }
     getProducts()
     //toast.success('Vous êtes connectée')
-  }, [getProducts])
+  }, [])
 
   const handleAddProduct = async (event) => {
     event.preventDefault()
@@ -112,7 +112,7 @@ export default function Dashboard() {
           className={'form-control mb-2'}
           name="price_limit"
           id="price_limit"
-          placeholder="15.99"
+          placeholder="Exemple : 15.99"
           min="0.01"
           required
         />
@@ -130,7 +130,7 @@ export default function Dashboard() {
         <ToastContainer />
         <div className="page-content">
           <div className="card-group">
-            {products.length > 0 &&
+            {Array.isArray(products) && products.length > 0 ? (
               products.map((product, index) => (
                 <Product
                   key={index}
@@ -139,7 +139,10 @@ export default function Dashboard() {
                   dateAdded={product.dateAdded}
                   website={product.website}
                 />
-              ))}
+              ))
+            ) : (
+              <div className="text-center p-5">Aucun produit</div>
+            )}
           </div>
           <div className="add-product">
             <button id="#button-add-product" onClick={() => setOpen((o) => !o)}>

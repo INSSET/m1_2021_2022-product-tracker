@@ -6,9 +6,9 @@ name: Frontend React CI
 
 on:
   push:
-    branches: [prod-front]
+    branches: [prod-front, dev-front]
   pull_request:
-    branches: [prod-front]
+    branches: [prod-front, dev-front]
 
 jobs:
   build:
@@ -16,7 +16,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [14.x]
+        node-version: [16.x]
 
     steps:
       - name: Checkout repository
@@ -29,15 +29,12 @@ jobs:
 
       - name: Install dependencies
         run: |
-          cd service.front/
           npm install
 
       - name: Build
         run: |
-          cd service.front/
           npm run build
 
       - name: Run the tests
         run: |
-          cd service.front/
           npm test
