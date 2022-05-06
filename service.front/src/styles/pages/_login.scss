@@ -1,0 +1,23 @@
+[data-login] {
+  form {
+    margin: 50px 0;
+    .form-input {
+      margin-bottom: 20px;
+    }
+  }
+  #inputShowPassword {
+    height: 100%;
+    &:focus {
+      box-shadow: none;
+      border: 0;
+      outline: none;
+    }
+  }
+  button[type='submit'] {
+    margin-top: 20px;
+  }
+  .background {
+    max-height: calc(100vh - 50px);
+    overflow: hidden;
+  }
+}

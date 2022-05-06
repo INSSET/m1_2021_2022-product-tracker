@@ -1,0 +1,17 @@
+[data-footer] {
+  color: white;
+  background-color: rgba(0, 0, 0, 1);
+  padding: 20px 0;
+  ul {
+    padding-left: 0;
+  }
+  li {
+    list-style: none;
+  }
+  .footer-text {
+    padding: 10px 0;
+  }
+  a {
+    color: $white;
+  }
+}

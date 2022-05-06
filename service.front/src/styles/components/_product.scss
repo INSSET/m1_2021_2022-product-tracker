@@ -1,0 +1,29 @@
+[data-product] {
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+  padding: 15px 25px;
+  border-radius: 10px;
+  display: flex;
+  width: 280px;
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    li {
+      margin: 0;
+    }
+  }
+  .website-img-container {
+    align-self: center;
+    margin-left: auto;
+    .website-img {
+      width: 45px;
+      height: 45px;
+      object-fit: cover;
+    }
+  }
+  span {
+    font-size: 15px;
+    height: 30px;
+  }
+}
