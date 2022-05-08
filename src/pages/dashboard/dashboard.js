@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import 'react-toastify/dist/ReactToastify.css'
-import { ToastContainer, toast } from 'react-toastify'
+import { toast } from 'react-toastify'
 import Product from '../../components/product'
 import { IoIosAddCircle } from 'react-icons/io'
 import axios from 'axios'
@@ -69,7 +69,8 @@ export default function Dashboard() {
       .catch((err) => {
         toast.error('Erreur de récupération des produits', 'error')
         console.error(`Error: ${err}`)
-        // TODO : REMOVE THIS -> TESTING ONLY
+
+        // REMOVE THIS -> TESTING ONLY
         setProducts((p) => [
           ...p,
           { product: 'Product X', seller: 'seller xxx', dateAdded: '01/05/2022', website: 'aliexpress' },
@@ -80,7 +81,7 @@ export default function Dashboard() {
     toast.success('Votre produit a été ajouté')
   }
 
-  // TODO : Remove this, used only for testing
+  //  Remove this, used only for testing
   const fakeDataProducts = () => {
     setProducts([
       { product: 'Product 1', seller: 'Seller 1', dateAdded: '01/05/2022', website: 'amazon' },
@@ -127,7 +128,6 @@ export default function Dashboard() {
     <>
       <div data-dashboard className={'container mt-5'}>
         <h1>Tableau de bord</h1>
-        <ToastContainer />
         <div className="page-content">
           <div className="card-group">
             {Array.isArray(products) && products.length > 0 ? (

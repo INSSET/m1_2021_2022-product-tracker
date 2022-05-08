@@ -1,15 +1,16 @@
 // First we need to import axios.js
 import axios from 'axios'
 
-const apiUrl = process.env.NODE_ENV === 'production' ? 'http://XXX:5000/api' : 'http://localhost:5000/api'
-
+// Put this in env vars (not working for now)
+const apiUrl = 'https://globetrotteur.df.r.appspot.com/'
 // Next we make an 'instance' of it
 const instance = axios.create({
   // .. where we make our configurations
+  headers: {
+    'Content-Type': 'application/json',
+    'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept, Authorization',
+  },
   baseURL: apiUrl,
 })
-
-axios.defaults.headers.common['Authorization'] = '123'
-axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
 
 export default instance
