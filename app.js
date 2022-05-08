@@ -97,9 +97,11 @@ app.post("/login", async (req, res) => {
   });
 
 // Verify
-app.get("/verify/:token", async (req, res) => {
+app.get("/verify", async (req, res) => {
     const jwt = require('njwt')
-    const { token } = req.params
+    const bearerHeader = req.headers['authorization'];
+    const bearer = bearerHeader.split(' ');
+    const token = bearer[1];
     jwt.verify(token, process.env.TOKEN_KEY, (err, verifiedJwt) => {
       if(err){
         res.send(err.message)
