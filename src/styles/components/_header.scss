@@ -1,0 +1,24 @@
+[data-header] {
+  padding: 0 50px;
+  display: flex;
+  height: 50px;
+  align-items: center;
+  box-shadow: 0px 0px 16px 7px rgba(0, 0, 0, 0.43);
+  -webkit-box-shadow: 0px 0px 16px 7px rgba(0, 0, 0, 0.43);
+  background-color: $black;
+  color: $white;
+  .logo {
+    margin-right: 20px;
+    width: 240px;
+    height: auto;
+  }
+  a {
+    padding: 0 20px;
+    color: $blue;
+    &.title {
+      font-size: 24px;
+      text-decoration: none;
+      color: $white;
+    }
+  }
+}

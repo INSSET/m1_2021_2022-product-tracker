@@ -1,0 +1,26 @@
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: -apple-system Roboto sans-serif;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  background-color: $body-background;
+}
+main {
+  min-height: calc(100vh - calc(250px));
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+[role='icon'] {
+  width: 20px;
+  height: auto;
+}

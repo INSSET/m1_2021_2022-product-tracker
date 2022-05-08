@@ -1,0 +1,35 @@
+* {
+  font-family: 'Roboto', monospace;
+}
+
+h1,
+h2,
+h3,
+span,
+[data-header] {
+  a {
+    display: flex;
+    align-items: center;
+    font-weight: 600;
+  }
+}
+
+h1 {
+  font-weight: 800;
+  font-size: 50px;
+}
+
+h2 {
+  font-size: 34px;
+  font-weight: 700;
+}
+
+h3 {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.footer-text,
+.footer-header {
+  font-size: 14px;
+}

@@ -1,0 +1,39 @@
+[data-dashboard] {
+  .products {
+    font-weight: 600;
+  }
+  .states {
+    font-style: italic;
+  }
+  .card-group {
+    gap: 20px 25px;
+    margin-bottom: 30px;
+    min-width: 400px;
+  }
+  .add-product {
+    width: 100%;
+    button {
+      background: none;
+      color: inherit;
+      border: none;
+      padding: 0;
+      font: inherit;
+      height: auto;
+      float: right;
+
+      svg {
+        width: 75px;
+        height: 75px;
+        color: #4169e1;
+        -webkit-filter: drop-shadow(0px 0px 1px black);
+        filter: drop-shadow(0px 0px 50px black);
+        transition: 0.5s; /* Animation */
+        outline: 0;
+        border: none;
+        &:hover {
+          transform: scale(1.1);
+        }
+      }
+    }
+  }
+}

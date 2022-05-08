@@ -1,21 +1,25 @@
-# Project Product Tracker
+# Product Tracker
 
-# Description
+Projet Tracker est une application qui vous permet de suivre l'évolution du prix d'un produit sur une durée.
 
-Le projet consiste à créer une application qui permet de tracker les prix de produit.
+## Commandes disponibles
 
-Voici un schéma récapitulatif de l’architecture de l’application :
+Dans le projet vous pourrez démarrer les commandes suivantes :
 
-![Untitled](https://user-images.githubusercontent.com/55629825/158229157-238733f7-689a-45aa-aa2a-7847829a3432.png)
+### `npm start`
 
-# Sprint 1
+Démarre l'application en mode développement.\
+Ouvrir [http://localhost:3000](http://localhost:3000) pour visualiser le projet dans le navigateur.
 
-- Choix des technos → **TOUS**
-- [DB] Choisir l'hébergement → **TOUS**
-- [DB] créer le modèle de données → **TOUS**
-- [DB] Add des fixtures → **Mohammed khechini**
-- [FRONT] Créer une maquette des différentes pages du site → **Esteban**
-- [FRONT] Initialisation du projet WEB Front → **Samy** ✅
-- [AUTH] initialisation du projet auth → **Mohammed BC, Mohammed Salih**
-- [BACK] Initialisation du projet WEB API → **Nicolas**
-- [INIT] Scrapper AMAZON développement d’un cas de test avec une url en dure → **Théo**
+### `npm test`
+
+Démarre les tests unitaires avec le pourcentage de couverture de code.\
+
+### `npm run build`
+
+Transpile l'application pour la production dans le dossier `build`.\
+Il optimise le build pour offrir les meilleures performances.
+
+## Powered By
+
+React [React documentation](https://reactjs.org/).
