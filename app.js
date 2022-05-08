@@ -5,9 +5,13 @@ const User = require("./model/user");
 const bcrypt = require('bcryptjs');
 const jwt    = require('jsonwebtoken');
 
+const swaggerUi = require('swagger-ui-express')
+const swaggerFile = require('./swagger-output.json')
+
 const app = express();
 
 app.use(express.json());
+app.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerFile))
 
 // Register
 app.post("/register", async (req, res) => {
