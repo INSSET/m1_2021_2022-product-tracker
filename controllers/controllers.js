@@ -1,41 +1,47 @@
-import axios from "axios";
+import {callRegisterApi, callLoginApi, callVerifyToken} from "../services/callAuth.js";
 
 export const mainPage = (_, res) => {
     res.send("Main Page");
 }
 
-export const registerAction = (req, res) => {
+export const registerAction = async (req, res) => {
 
     if (!req.body.email || !req.body.password || !req.body.first_name || !req.body.last_name) {
         return res.json({"message": "Pas toutes les informations nécéssaires"});
     }
     
-    axios.post(`${process.env.AUTH_API_URL}/register`, {
-        email: req.body.email,
-        password: req.body.password,
-        first_name: req.body.first_name,
-        last_name: req.body.last_name
-    }).then(response => {
-        return res.json({"datas": response.data});
-    })
-    .catch(error => {
-        return res.json({"message": error.response.data});
-    })
+    let returnedDatas = await callRegisterApi(req.body);
+    if (!returnedDatas) {
+        return res.json({"message": "Une erreur est survenue"})
+    }
+
+    return res.json({datas: returnedDatas});
 
 }
 
-export const loginAction = (req, res) => {
+export const loginAction = async (req, res) => {
     if (!req.body.email || !req.body.password) {
         return res.json({"message": "Pas toutes les informations nécéssaires"});
     }
 
-    axios.post(`${process.env.AUTH_API_URL}/login`, {
-        email: req.body.email,
-        password: req.body.password
-    }).then(response => {
-        return res.json({"datas": response.data});
-    })
-    .catch(error => {
-        return res.json({"message": error.response.data});
-    })
+    let loginDatas = await callLoginApi(req.body);
+    if (!loginDatas) {
+        return res.json({"message": "Une erreur est survenue"})
+    }
+
+    return res.json({datas: loginDatas});
+}
+
+export const verifyAction = async (req, res) => {
+    if (!req.body.token) {
+        return res.json({"message": "Pas de token fourni"});
+    }
+
+    let verifyDatas = await callVerifyToken(req.body.token);
+
+    if (!verifyDatas.body) {
+        return res.json({"message": verifyDatas});
+    }
+
+    return res.json({datas: verifyDatas});
 }

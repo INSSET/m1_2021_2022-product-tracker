@@ -1,0 +1,39 @@
+name: Frontend React CI
+
+on:
+  push:
+    branches: [dev-api]
+  pull_request:
+    branches: [dev-api]
+
+jobs:
+  Install-Build-Test:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [16.x]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install dependencies
+        run: |
+          npm install
+      - name: Build
+        run: |
+          npm run build
+
+      - name: Deploy Back End on app engine
+          id: deploy-app
+          uses: google-github-actions/deploy-appengine@v0.2.0
+          with:
+            project_id: ${{ secrets.BACK_END_PROJECT_ID }}
+            deliverables: app.yaml
+            credentials: ${{ secrets.BACK_END_CREDENTIALS }}
