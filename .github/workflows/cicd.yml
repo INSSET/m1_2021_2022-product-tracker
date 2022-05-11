@@ -36,3 +36,7 @@ jobs:
       - name: Deploy Back End on app engine
         id: 'deploy-app'
         uses: google-github-actions/deploy-appengine@v0.2.0
+        with:
+          project_id: ${{ secrets.BACK_END_PROJECT_ID }}
+          deliverables: app.yaml
+          credentials: ${{ secrets.BACK_END_CREDENTIALS }}
