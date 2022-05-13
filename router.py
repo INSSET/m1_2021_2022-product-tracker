@@ -1,5 +1,5 @@
 from flask import Flask, request
-import scrapper
+from scrapper_aliExpress import get_price
 from flask_restx import Resource, Api
 
 app = Flask(__name__)
@@ -17,7 +17,7 @@ class route_get_price(Resource):
         if(url == -1):
             return "You need to provide an url in named param form url !"
             
-        result = scrapper.get_price(url)
+        result = get_price(url)
 
         if(result == -1):
             status = 404
