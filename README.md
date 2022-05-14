@@ -1,21 +1,18 @@
-# Project Product Tracker
+# Product Tracker - Crawler de prix Amazon
 
-# Description
+## Technologies utilisées
 
-Le projet consiste à créer une application qui permet de tracker les prix de produit.
+​	J’ai réalisé un petit module **Node.JS** utilisant la librairie **Puppeteer** pour récupérer les informations qui nous sont utiles sur la page des produits.
 
-Voici un schéma récapitulatif de l’architecture de l’application :
+En outils de développement, j’utilise également **Jest** pour les tests unitaires (TODO) et **Nodemon** pour recharger le code à chaud.
 
-![Untitled](https://user-images.githubusercontent.com/55629825/158229157-238733f7-689a-45aa-aa2a-7847829a3432.png)
+> *Dans le futur, j’utiliserai peut-être **Express** et **Swagger** pour faire de ce module une «API» consultable avec une requête HTTP.*
 
-# Sprint 1
+## Utiliser le module
 
-- Choix des technos → **TOUS**
-- [DB] Choisir l'hébergement → **TOUS**
-- [DB] créer le modèle de données → **TOUS**
-- [DB] Add des fixtures → **Mohammed khechini**
-- [FRONT] Créer une maquette des différentes pages du site → **Esteban**
-- [FRONT] Initialisation du projet WEB Front → **Samy**
-- [AUTH] initialisation du projet auth → **Mohammed BC, Mohammed Salih**
-- [BACK] Initialisation du projet WEB API → **Nicolas**
-- [INIT] Scrapper AMAZON développement d’un cas de test avec une url en dure → **Théo**
+Cette commande peut vous permettre d’utiliser le crawler :
+`node index.js "https://www.amazon.fr/Nintendo-Switch-avec-paire-Rouge/dp/B07WKNQ8JT"`
+
+## Notes
+
+​	J’ai rédigé et synthétisé les recherches entreprises pour la création de ce module dans le document `./Notes et docs/Étude.md`.
