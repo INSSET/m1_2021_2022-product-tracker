@@ -7,7 +7,7 @@ use PHPMailer\PHPMailer\Exception;
 
 class MailSender{
 
-    const our_mail = "from@example.com";
+    static $our_mail = "khechinibakr20@gmail.com";
 
     public static function send($receiver) {
 
@@ -17,7 +17,7 @@ class MailSender{
         try {
 
             //Recipients
-            $mail->setFrom($mail, 'Mail Notifier');
+            $mail->setFrom(self::$our_mail, 'Mail Notifier');
             $mail->addAddress($receiver);     //Add a recipient
             $mail->addReplyTo('noreply@oudomain.com', 'Information');
         
