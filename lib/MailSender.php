@@ -7,7 +7,7 @@ use PHPMailer\PHPMailer\Exception;
 
 class MailSender{
 
-    static $our_mail = "notifier@product_tracker.com";
+    static $our_mail = "khechinibakr20@gmail.com";
 
     public static function send($receiver, $subject, $body, $altbody) {
 
