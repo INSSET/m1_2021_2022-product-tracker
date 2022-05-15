@@ -7,7 +7,7 @@ use PHPMailer\PHPMailer\Exception;
 
 class MailSender{
 
-    static $our_mail = "khechinibakr20@gmail.com";
+    static $our_mail = "notifier@product_tracker.com";
 
     public static function send($receiver, $subject, $body, $altbody) {
 
@@ -19,7 +19,7 @@ class MailSender{
             //Recipients
             $mail->setFrom(self::$our_mail, 'Mail Notifier');
             $mail->addAddress($receiver);     //Add a recipient
-            $mail->addReplyTo('noreply@oudomain.com', 'Information');
+            $mail->addReplyTo('noreply@product_tracker.com', 'Information');
         
             // //Attachments
             // $mail->addAttachment('/var/tmp/file.tar.gz');         //Add attachments
