@@ -41,11 +41,17 @@ class UpdatePricesCommand extends \Symfony\Component\Console\Command\Command
 
         foreach ($products as $product) {
             $output->writeln('Updating prices for product: ' . $product->getNom());
+          //  $updated_price = $this->priceService->getPrice($product->getUrl(), $product->getIdseller()->getId());
             $updated_price = 0;
             $productPrice = new Productprice();
             $productPrice->setDate(new \DateTime());
             $productPrice->setPrice($updated_price);
             $productPrice->setIdproduct($product);
+
+            if ($product->getTargetprice() !== null && $product->getTargetprice() >= $updated_price) {
+                $output->writeln('Price is lower than target price');
+                // TODO notifier
+            }
 
             $this->entityManager->persist($productPrice);
 
