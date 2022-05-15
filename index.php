@@ -20,7 +20,10 @@ $router->get('/', function() {
 $router->post('/api/mail/send', function() {
     $key = "insset";
 
+    
     if (md5($key) == $_POST['api_key']) {
+        //print_r(md5($key));
+        //print_r($_POST['api_key']);
         MailSender::send($_POST["email"], $_POST["subject"], $_POST["body"], $_POST["altbody"]);
     }
     else {
