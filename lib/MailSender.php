@@ -9,7 +9,7 @@ class MailSender{
 
     static $our_mail = "khechinibakr20@gmail.com";
 
-    public static function send($receiver) {
+    public static function send($receiver, $subject, $body, $altbody) {
 
         $mail = new PHPMailer(true);
 
@@ -27,9 +27,9 @@ class MailSender{
         
             //Content
             $mail->isHTML(true);                                  //Set email format to HTML
-            $mail->Subject = 'Price Notifier';
-            $mail->Body    = 'This is the HTML message body <b>in bold!</b>';
-            $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+            $mail->Subject = $subject;
+            $mail->Body    = $body;
+            $mail->AltBody = $altbody;
         
             $mail->send();
             echo 'Message a été envoyé';
