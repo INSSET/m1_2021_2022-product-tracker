@@ -1,15 +1,21 @@
 import puppeteer from "puppeteer";
 
 const SELECTORS = {
-  productTitle: "#productTitle",
-  productPrice: '#buybox [data-feature-name="corePrice"] .a-price .a-offscreen',
-  fallbackPrice: '.a-price-range .a-price .a-offscreen',
-  sellerName: '#bylineInfo',
+  productTitle: ".product-title__main",
+  productPrice: '.price .price__amount',
 };
 const USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4889.0 Safari/537.36";
 
-// Function for getting the price of a product on Amazon
+function checkUrl(url) {
+  return url.match(/^https:\/\/www.boulanger.com\/ref\/\d+$/);
+}
+
+// Function for getting the price of a product on Boulanger.com
 async function getPrice(url) {
+  if (!checkUrl(url)) {
+    return { error: `Invalid URL (${url})` };
+  }
+
   // Create a new browser
   var browser = await puppeteer.launch({
     headless: true,
@@ -31,12 +37,10 @@ async function getPrice(url) {
     try {
       let price = await page.$eval(SELECTORS.productPrice, (el) => el.innerText);
       let prod_name = await page.$eval(SELECTORS.productTitle, (el) => el.innerText);
-      // This one is kind of shit, as it's not precisely only the name of the seller... But I fail to find a better way.
-      let seller_name = await page.$eval(SELECTORS.sellerName, (el) => el.innerText);
       return {
         price: price,
         prod_name: prod_name,
-        seller_name: seller_name,
+        seller_name: "Boulanger",
       };
     } catch (error) {
       return {

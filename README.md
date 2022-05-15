@@ -1,4 +1,4 @@
-# Product Tracker - Crawler de prix Amazon
+# Product Tracker - Crawler de prix Boulanger
 
 ## Technologies utilisées
 
@@ -11,8 +11,4 @@ En outils de développement, j’utilise également **Jest** pour les tests unit
 ## Utiliser le module
 
 Cette commande peut vous permettre d’utiliser le crawler :
-`node index.js "https://www.amazon.fr/Nintendo-Switch-avec-paire-Rouge/dp/B07WKNQ8JT"`
-
-## Notes
-
-​	J’ai rédigé et synthétisé les recherches entreprises pour la création de ce module dans le document `./Notes et docs/Étude.md`.
+`node index.js "https://www.boulanger.com/ref/9000192327"`
