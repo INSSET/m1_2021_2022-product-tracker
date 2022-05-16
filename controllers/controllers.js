@@ -7,15 +7,15 @@ export const mainPage = (_, res) => {
 export const registerAction = async (req, res) => {
 
     if (!req.body.email || !req.body.password || !req.body.first_name || !req.body.last_name) {
-        return res.json({"message": "Pas toutes les informations nécéssaires"});
+        return res.statusCode(417).json({"message": "Pas toutes les informations nécéssaires"});
     }
     
     let returnedDatas = await callRegisterApi(req.body);
     if (!returnedDatas) {
-        return res.json({"message": "Une erreur est survenue"})
+        return res.statusCode(503).json({"message": "Une erreur est survenue"})
     }
 
-    return res.json({datas: returnedDatas});
+    return res.statusCode(200).json({datas: returnedDatas});
 
 }
 
