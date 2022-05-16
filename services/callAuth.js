@@ -35,19 +35,3 @@ export const callLoginApi = async (datas) => {
         return undefined;
     }
 }
-
-export const callVerifyToken = async (access_token) => {
-    try {
-        return await axios.get(`${process.env.AUTH_API_URL}/verify`, {
-            headers: {
-                'Authorization': `token ${access_token}`
-            }
-        }).then(response => {
-            return response.data;
-        }).catch(error => {
-            return error.response.data;
-        })
-    } catch (error) {
-        return undefined;
-    }
-}
