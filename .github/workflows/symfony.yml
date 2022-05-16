@@ -31,4 +31,4 @@ jobs:
             - name: Install Dependencies
               run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
             - name: Execute tests (Unit and Feature tests) via PHPUnit
-              run: vendor/bin/phpunit --columns 20 --stop-on-failure
+              run: vendor/bin/phpunit 
