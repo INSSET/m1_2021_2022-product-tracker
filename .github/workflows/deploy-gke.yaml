@@ -47,4 +47,5 @@ jobs:
     # Build the Docker image
     - name: Update Image on Deployment
       run: |-
+        kubectl config set-context --current --namespace=dev
         kubectl set image deployment $DEPLOYMENT_NAME productracker-sha256-1="gcr.io/$PROJECT_ID/$IMAGE:$GITHUB_SHA"
