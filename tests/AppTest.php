@@ -6,7 +6,7 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 use http\Client;
 use Symfony\Component\HttpClient\HttpClient;
 
-class AppTests extends \Symfony\Bundle\FrameworkBundle\Test\KernelTestCase
+class AppTest extends \Symfony\Bundle\FrameworkBundle\Test\KernelTestCase
 {
 
 
