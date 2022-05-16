@@ -30,5 +30,7 @@ jobs:
                       ${{ runner.os }}-php-
             - name: Install Dependencies
               run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+            - name: start web server
+              run: php -S localhost:8000 -t public/
             - name: Execute tests (Unit and Feature tests) via PHPUnit
               run: vendor/bin/phpunit 
