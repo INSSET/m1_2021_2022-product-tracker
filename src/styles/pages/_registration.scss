@@ -14,11 +14,14 @@
       outline: none;
     }
   }
-  button[type='submit'] {
+  button[type='submit'],
+  a.btn-secondary {
     margin-top: 20px;
   }
+  a.btn-secondary {
+    float: right;
+  }
   .background {
-    max-height: calc(100vh - 50px);
     overflow: hidden;
   }
 }

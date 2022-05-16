@@ -2,14 +2,14 @@ import React from 'react'
 import { render } from 'react-dom'
 import Router from './routes/router'
 import reportWebVitals from './reportWebVitals'
-import Layout from './components/layout'
+import { BrowserRouter } from 'react-router-dom'
 
 const rootElement = document.getElementById('root')
 
 render(
-  <Layout>
+  <BrowserRouter role="router">
     <Router />
-  </Layout>,
+  </BrowserRouter>,
   rootElement
 )
 

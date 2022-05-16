@@ -5,6 +5,7 @@ import Adapter from '@wojtekmaj/enzyme-adapter-react-17'
 import * as React from 'react'
 import axios from 'axios'
 import PRODUCTS_MOCK from '../mocks/products.mock.js'
+import { BrowserRouter } from 'react-router-dom'
 
 configure({ adapter: new Adapter() })
 
@@ -14,7 +15,11 @@ beforeEach(() => {
 
 describe('Dashboard', () => {
   it('renders Dashboard page', () => {
-    render(<Dashboard />)
+    render(
+      <BrowserRouter>
+        <Dashboard />
+      </BrowserRouter>
+    )
     const el = screen.getAllByText('Tableau de bord')
     expect(el).toBeDefined()
     expect(el.length).toBeGreaterThan(0)
