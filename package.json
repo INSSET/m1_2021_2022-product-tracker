@@ -1,7 +1,7 @@
 {
-  "name": "amazon-crawler",
+  "name": "boulanger-crawler",
   "version": "0.0.2",
-  "description": "A crawler for Amazon products (gets the price of one product we're asked about).",
+  "description": "A crawler for Boulanger products (gets the price of one product we're asked about).",
   "main": "index.js",
   "type": "module",
   "dependencies": {
@@ -24,7 +24,7 @@
     "price",
     "tracker",
     "scrapper",
-    "amazon"
+    "boulanger"
   ],
   "author": "Théo Cramez",
   "license": "ISC",
