@@ -2,11 +2,22 @@
 
 namespace App\Service;
 
+use Symfony\Contracts\HttpClient\HttpClientInterface;
+
 class PriceService
 {
     //TODO API entry..
     CONST API_URL = 'tobedetermined.com';
     CONST API_KEY = 'tobedetermined';
+
+
+
+    private HttpClientInterface $client;
+
+    public function __construct(HttpClientInterface $client)
+    {
+        $this->client = $client;
+    }
 
     public function getAmazonPrice(string $url): float
     {

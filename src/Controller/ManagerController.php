@@ -12,15 +12,6 @@ use App\Service\PriceService;
 
 class ManagerController extends \Symfony\Bundle\FrameworkBundle\Controller\AbstractController
 {
-
-
-    private HttpClientInterface $client;
-
-    public function __construct(HttpClientInterface $client)
-    {
-        $this->client = $client;
-    }
-
     #[Route('/getPrice', name: 'get_price')]
     public function index(Request $request,$app_key, EntityManager $entityManager, PriceService $price_service): \Symfony\Component\HttpFoundation\JsonResponse
     {

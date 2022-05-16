@@ -10,6 +10,8 @@ use App\Entity\Product;
 use App\Entity\Productprice;
 use App\Service\PriceService;
 use Psr\Log\LoggerInterface;
+use Symfony\Contracts\HttpClient\HttpClientInterface;
+use App\Entity\Userproduct;
 
 #[AsCommand(
     name: 'app:update-prices',
@@ -23,14 +25,16 @@ class UpdatePricesCommand extends \Symfony\Component\Console\Command\Command
     protected static $defaultName = 'app:update-prices';
     private $entityManager;
     private $logger;
+    private $client;
 
 
 
-    public function __construct(EntityManager $entityManager, PriceService $priceService, LoggerInterface $logger)
+    public function __construct(EntityManager $entityManager, PriceService $priceService, LoggerInterface $logger, HttpClientInterface $client)
     {
         $this->entityManager = $entityManager;
         $this->priceService = $priceService;
         $this->logger = $logger;
+        $this->client = $client;
         parent::__construct();
     }
 
@@ -50,7 +54,21 @@ class UpdatePricesCommand extends \Symfony\Component\Console\Command\Command
 
             if ($product->getTargetprice() !== null && $product->getTargetprice() >= $updated_price) {
                 $output->writeln('Price is lower than target price');
-                // TODO notifier
+                $user_product = $this->entityManager->getRepository(Userproduct::class)->findBy(['idProduct' => $product->getIdproduct()]);
+
+            /*    $this->client->request(
+                    'POST',
+                    'https://lesjardinsdeauville.4beez.agency/product-tracker/api/mail/send',
+                    [
+                        'json' => [
+                            'api_key' => 'd62585b7bee6d03016234ca363fe1501',
+                            'email' =>  $this->entityManager->getRepository(Userproduct::class)->findBy(['idProduct' => $product->getIdproduct()]),
+                            'subject' => 'Price is lower than target price',
+                            'body' => 'Price is lower than target price',
+                        ],
+                    ]
+                );*/
+
             }
 
             $this->entityManager->persist($productPrice);
