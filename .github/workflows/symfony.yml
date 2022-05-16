@@ -33,6 +33,6 @@ jobs:
             - name: start web server
               run: echo 'deb [trusted=yes] https://repo.symfony.com/apt/ /' | sudo tee /etc/apt/sources.list.d/symfony-cli.list && sudo apt update && sudo apt install symfony-cli
             - name: symfony web server
-              run: symfony serve
+              run: symfony serve -d
             - name: Execute tests (Unit and Feature tests) via PHPUnit
               run: vendor/bin/phpunit 
