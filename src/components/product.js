@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
-import WEBSITE_ASSETS from '../constants/websites_assets'
+import WEBSITE_ASSETS from '../constants/websitesAssets'
+import { Link } from 'react-router-dom'
 
 export default function Product({ product, seller, dateAdded, website }) {
   const [imgSrcWebsite, setImgSrcWebsite] = useState(null)
@@ -10,7 +11,7 @@ export default function Product({ product, seller, dateAdded, website }) {
 
   return (
     <>
-      <a href={`/product/${product}`}>
+      <Link to={`/product/${product}`}>
         <div data-product>
           <ul>
             <li>
@@ -27,7 +28,7 @@ export default function Product({ product, seller, dateAdded, website }) {
             {website && <img className="website-img" src={imgSrcWebsite} alt="website" />}
           </div>
         </div>
-      </a>
+      </Link>
     </>
   )
 }

@@ -5,10 +5,8 @@
 name: Frontend React CI
 
 on:
-  push:
-    branches: [prod-front, dev-front]
   pull_request:
-    branches: [prod-front, dev-front]
+    branches: [prod/front, dev/front]
 
 jobs:
   Install-Build-Test:

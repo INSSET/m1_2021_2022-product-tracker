@@ -1,14 +1,40 @@
+import Cookies from 'js-cookie'
+import { useEffect, useState } from 'react'
+
+import { NavLink } from 'react-router-dom'
+
 export default function Header() {
+  const [firstname, setFirstname] = useState(null)
+
+  useEffect(() => {
+    const token = Cookies.get('auth_token') ? Cookies.get('auth_token') : null
+
+    if (token) {
+      setFirstname(Cookies.get('firstname'))
+    } else {
+      setFirstname(null)
+    }
+  }, [])
+
   return (
     <>
       <header className="header">
         <nav data-header className="navbar">
-          <a className="title" href="/">
+          <NavLink className="title" to="/">
             Product Tracker
-          </a>
+          </NavLink>
           <div className="d-flex">
-            <a href="/login">Connexion</a>
-            <a href="/register">Inscription</a>
+            {firstname ? (
+              <>
+                <span>Bonjour, {firstname}</span>
+                <NavLink to="/disconnect">Déconnexion</NavLink>
+              </>
+            ) : (
+              <>
+                <NavLink to="login">Connexion</NavLink>
+                <NavLink to="register">Inscription</NavLink>
+              </>
+            )}
           </div>
         </nav>
       </header>
