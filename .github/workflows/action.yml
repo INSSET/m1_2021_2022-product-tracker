@@ -29,28 +29,3 @@ jobs:
       run: |
         pip install pylint
         pylint --fail-under=7 app.py
-        ...
-
-    - name: Lint with black
-      run: |
-        pip install black
-        black .
-        ...
-
-    - name: Lint with isort
-      run: |
-        pip install isort
-        isort .
-        ...
-
-    - name: Lint with pycodestyle
-      run: |
-        pip install pycodestyle
-        pycodestyle .
-        ...
-
-    - name: Lint with mypy
-      run: |
-        pip install mypy
-        mypy .
-        ...
