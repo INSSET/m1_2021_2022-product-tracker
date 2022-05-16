@@ -24,7 +24,7 @@ To get the product update you have to call this entrypoint with a payload that l
 
 ### Update all prices command
 
-You'll also find in this micro service a command that updates all product's prices. 
+You'll also find in this micro service a command that updates all product's prices and triget a notifier when target price >= actual price. 
 ```bash
   cd /path_to_project
   php bin/console app:update-prices
