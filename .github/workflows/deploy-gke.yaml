@@ -1,0 +1,50 @@
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+
+name: Build and Deploy to GKE
+
+on:
+  push:
+    branches:
+      - dev-auth
+
+env:
+  PROJECT_ID: ${{ secrets.GCP_PROJECT }}
+  GKE_CLUSTER: product-tracker-cluster    # Add your cluster name here.
+  GKE_ZONE: europe-central2   # Add your cluster zone here.
+  DEPLOYMENT_NAME: auth # Add your deployment name here.
+  IMAGE: ${{ secrets.GCP_APPLICATION }}
+
+jobs:
+  setup-build-publish-deploy:
+    name: Setup, Build, Publish, and Deploy
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@master
+
+    # Setup gcloud CLI
+    - uses: google-github-actions/setup-gcloud@v0
+      with:
+        service_account_email: ${{ secrets.GCP_EMAIL }}
+        service_account_key: ${{ secrets.GCP_CREDENTIALS }}
+        export_default_credentials: true
+    
+    # Configure Docker with Credentials
+    - name: Configure Docker
+      run: |
+        gcloud auth configure-docker
+        
+    # Get the GKE credentials so we can deploy to the cluster
+    - uses: google-github-actions/get-gke-credentials@fb08709ba27618c31c09e014e1d8364b02e5042e
+      with:
+        cluster_name: ${{ env.GKE_CLUSTER }}
+        location: ${{ env.GKE_ZONE }}
+        credentials: ${{ secrets.GCP_CREDENTIALS }}
+        
+    # Build the Docker image
+    - name: Update Image on Deployment
+      run: |-
+        kubectl set image deployment $DEPLOYMENT_NAME productracker-sha256-1="gcr.io/$PROJECT_ID/$IMAGE:$GITHUB_SHA"
