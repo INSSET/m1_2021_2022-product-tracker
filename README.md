@@ -32,3 +32,8 @@ Voici un schéma récapitulatif de l’architecture de l’application :
 - [SQL] Creer les users SQL pour les différents services **(Mohammed khechini)**
 - [ENV] Regarder pour créer un “Vault” un env qui est commun a toutes les application pour éviter la redondance du DB_HOST par exemple. **(LIBRE)**
 - [NOTIFIER] Creer le projet Notifier et commencer a le coder **(LIBRE)**
+
+# Sprint 3
+
+- [SCRAPPER] Modifier les scrappers pour fit avec le model json suivant : product_name: XXX, price: XXX (**Esteban, Théo**)
+- [ALL] creer des dockerfiles pour chaque micro-service (**ALL**)
