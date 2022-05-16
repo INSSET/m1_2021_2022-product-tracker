@@ -12,10 +12,10 @@ export const registerAction = async (req, res) => {
     
     let returnedDatas = await callRegisterApi(req.body);
     if (!returnedDatas) {
-        return res.statusCode(503).json({"message": "Une erreur est survenue"})
+        return res.statusx(503).json({"message": "Une erreur est survenue"})
     }
 
-    return res.statusCode(200).json({datas: returnedDatas});
+    return res.status(200).json({datas: returnedDatas});
 
 }
 
