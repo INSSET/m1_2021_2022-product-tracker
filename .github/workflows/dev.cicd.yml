@@ -32,7 +32,7 @@ jobs:
         id: 'auth'
         uses: 'google-github-actions/auth@v0'
         with:
-        credentials_json: '${{ secrets.BACK_END_CREDENTIALS }}'
+        credentials_json: ${{ secrets.BACK_END_CREDENTIALS }}
 
       - name: Deploy Back End on app engine
         id: 'deploy-app'
