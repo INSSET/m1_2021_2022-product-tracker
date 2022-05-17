@@ -73,7 +73,13 @@ export default function Dashboard() {
         // REMOVE THIS -> TESTING ONLY
         setProducts((p) => [
           ...p,
-          { product: 'Product X', seller: 'seller xxx', dateAdded: '01/05/2022', website: 'aliexpress' },
+          {
+            productId: 1,
+            productName: 'Product X',
+            priceLimit: 20.99,
+            dateAdded: '01/05/2022',
+            website: 'aliexpress',
+          },
         ])
       })
 
@@ -84,13 +90,31 @@ export default function Dashboard() {
   //  Remove this, used only for testing
   const fakeDataProducts = () => {
     setProducts([
-      { product_id: 1, product_name: 'Product 1', seller: 'Seller 1', dateAdded: '01/05/2022', website: 'amazon' },
-      { product_id: 2, product_name: 'Product 2', seller: 'Seller 2', dateAdded: '11/04/2022', website: 'aliexpress' },
-      { product_id: 3, product_name: 'Product 3', seller: 'Seller 3', dateAdded: '05/01/2020', website: 'amazon' },
-      { product_id: 4, product_name: 'Product 4', seller: 'Seller 4', dateAdded: '08/02/2022', website: 'aliexpress' },
-      { product_id: 5, product_name: 'Product 5', seller: 'Seller 5', dateAdded: '10/06/2021', website: 'aliexpress' },
-      { product_id: 6, product_name: 'Product 6', seller: 'Seller 6', dateAdded: '11/07/2021', website: 'amazon' },
-      { product_id: 7, product_name: 'Product 7', seller: 'Seller 7', dateAdded: '14/06/2022', website: 'amazon' },
+      { productId: 1, productName: 'Product 1', priceLimit: 30.2, dateAdded: '01/05/2022', website: 'amazon' },
+      {
+        productId: 2,
+        productName: 'Product 2',
+        priceLimit: 2.11,
+        dateAdded: '11/04/2022',
+        website: 'aliexpress',
+      },
+      { productId: 3, productName: 'Product 3', priceLimit: 20.0, dateAdded: '05/01/2020', website: 'amazon' },
+      {
+        productId: 4,
+        productName: 'Product 4',
+        priceLimit: 10.0,
+        dateAdded: '08/02/2022',
+        website: 'aliexpress',
+      },
+      {
+        productId: 5,
+        productName: 'Product 5',
+        priceLimit: 15.99,
+        dateAdded: '10/06/2021',
+        website: 'aliexpress',
+      },
+      { productId: 6, productName: 'Product 6', priceLimit: 15.99, dateAdded: '11/07/2021', website: 'amazon' },
+      { productId: 7, productName: 'Product 7', priceLimit: 19.99, dateAdded: '14/06/2022', website: 'amazon' },
     ])
   }
 
@@ -111,8 +135,8 @@ export default function Dashboard() {
           type="number"
           step="0.01"
           className={'form-control mb-2'}
-          name="price_limit"
-          id="price_limit"
+          name="priceLimit"
+          id="priceLimit"
           placeholder="Exemple : 15.99"
           min="0.01"
           required
@@ -134,9 +158,9 @@ export default function Dashboard() {
               products.map((product, index) => (
                 <ProductCard
                   key={index}
-                  product_id={product.product_id}
-                  product_name={product.product_name}
-                  seller={product.seller}
+                  productId={product.productId}
+                  productName={product.productName}
+                  priceLimit={product.priceLimit}
                   dateAdded={product.dateAdded}
                   website={product.website}
                 />
