@@ -5,10 +5,15 @@ import ProductCard from '../../components/productCard'
 test('render a product', () => {
   render(
     <BrowserRouter>
-      <ProductCard product_id={1} product_name={'Product 1'} seller={'seller 1'} dateAdded={'11-02-2022'} />
+      <ProductCard productId={1} productName={'Product 1'} priceLimit={15} dateAdded={'11-02-2022'} />
     </BrowserRouter>
   )
-  const element = screen.getAllByText('Product 1')
-  expect(element).toBeDefined()
-  expect(element.length).toBeGreaterThan(0)
+  const productName = screen.getAllByText('Product 1')
+  const priceLimit = screen.getAllByText("Prix d'alerte : 15.00 €")
+
+  expect(productName).toBeDefined()
+  expect(productName.length).toBeGreaterThan(0)
+
+  expect(priceLimit).toBeDefined()
+  expect(priceLimit.length).toBeGreaterThan(0)
 })
