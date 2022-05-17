@@ -52,9 +52,11 @@ export default function Login() {
       })
       .then((response) => {
         if (response && response.data) {
-          // TODO : Replace this code with a check on status (should be 400)
-          if (response.data.message === 'Pas toutes les informations nécéssaires') {
+          if (response.data.datas === 'Pas toutes les informations nécéssaires') {
             toast.error('Au moins une information est manquante', 'error')
+            setLoggedIn(false)
+          } else if (response.data.datas === 'Invalid Credentials') {
+            toast.error("L'email ou le mot de passe est incorrect", 'error')
             setLoggedIn(false)
           } else {
             toast.success('Vous êtes connecté')
@@ -82,7 +84,7 @@ export default function Login() {
       {loggedIn && <Navigate to="/dashboard" />}
       <div data-login className="container-fluid">
         <div className="row">
-          <div className="background d-md-none d-lg-block col-xl-9 col-lg-6 p-0">
+          <div className="background d-none d-sm-none d-md-none d-lg-block col-xl-9 col-lg-6 p-0">
             <img className="background" src="background.webp" alt="background" />
           </div>
           <div className="col-md-12 col-lg-6 col-xl-3 p-5">
@@ -119,13 +121,12 @@ export default function Login() {
                   <div className="error-message"></div>
                 </div>
               </div>
-
-              <button className="btn btn-primary" type="submit" disabled={loading}>
-                Connexion
-              </button>
               <Link className="btn btn-secondary" to="/register">
                 Inscription
               </Link>
+              <button className="btn btn-primary" type="submit" disabled={loading}>
+                Connexion
+              </button>
             </form>
           </div>
         </div>
