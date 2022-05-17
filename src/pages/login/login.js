@@ -52,8 +52,6 @@ export default function Login() {
       })
       .then((response) => {
         if (response && response.data) {
-          // TODO : Replace this code with a check on status (should be 400)
-          console.log(response.data.datas)
           if (response.data.datas === 'Pas toutes les informations nécéssaires') {
             toast.error('Au moins une information est manquante', 'error')
             setLoggedIn(false)
@@ -86,7 +84,7 @@ export default function Login() {
       {loggedIn && <Navigate to="/dashboard" />}
       <div data-login className="container-fluid">
         <div className="row">
-          <div className="background d-md-none d-lg-block col-xl-9 col-lg-6 p-0">
+          <div className="background d-none d-sm-none d-md-none d-lg-block col-xl-9 col-lg-6 p-0">
             <img className="background" src="background.webp" alt="background" />
           </div>
           <div className="col-md-12 col-lg-6 col-xl-3 p-5">

@@ -10,6 +10,7 @@ import { toast, ToastContainer } from 'react-toastify'
 import jwtDecode from 'jwt-decode'
 import Layout from '../components/layout'
 import Footer from '../components/footer'
+import Product from '../pages/product/product'
 
 export default function Router() {
   function RequireAuth({ children }) {
@@ -72,6 +73,14 @@ export default function Router() {
         element={
           <RequireAuth>
             <LoginRoute Component={Dashboard} />
+          </RequireAuth>
+        }
+      />
+      <Route
+        path="product/:idProduct"
+        element={
+          <RequireAuth>
+            <LoginRoute Component={Product} />
           </RequireAuth>
         }
       />

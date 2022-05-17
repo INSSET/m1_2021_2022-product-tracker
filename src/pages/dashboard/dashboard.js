@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import 'react-toastify/dist/ReactToastify.css'
 import { toast } from 'react-toastify'
-import Product from '../../components/product'
+import ProductCard from '../../components/productCard'
 import { IoIosAddCircle } from 'react-icons/io'
 import axios from 'axios'
 import Modal from 'react-modal'
@@ -84,13 +84,13 @@ export default function Dashboard() {
   //  Remove this, used only for testing
   const fakeDataProducts = () => {
     setProducts([
-      { product: 'Product 1', seller: 'Seller 1', dateAdded: '01/05/2022', website: 'amazon' },
-      { product: 'Product 2', seller: 'Seller 2', dateAdded: '11/04/2022', website: 'aliexpress' },
-      { product: 'Product 3', seller: 'Seller 3', dateAdded: '05/01/2020', website: 'amazon' },
-      { product: 'Product 4', seller: 'Seller 4', dateAdded: '08/02/2022', website: 'aliexpress' },
-      { product: 'Product 5', seller: 'Seller 5', dateAdded: '10/06/2021', website: 'aliexpress' },
-      { product: 'Product 6', seller: 'Seller 6', dateAdded: '11/07/2021', website: 'amazon' },
-      { product: 'Product 7', seller: 'Seller 7', dateAdded: '14/06/2022', website: 'amazon' },
+      { product_id: 1, product_name: 'Product 1', seller: 'Seller 1', dateAdded: '01/05/2022', website: 'amazon' },
+      { product_id: 2, product_name: 'Product 2', seller: 'Seller 2', dateAdded: '11/04/2022', website: 'aliexpress' },
+      { product_id: 3, product_name: 'Product 3', seller: 'Seller 3', dateAdded: '05/01/2020', website: 'amazon' },
+      { product_id: 4, product_name: 'Product 4', seller: 'Seller 4', dateAdded: '08/02/2022', website: 'aliexpress' },
+      { product_id: 5, product_name: 'Product 5', seller: 'Seller 5', dateAdded: '10/06/2021', website: 'aliexpress' },
+      { product_id: 6, product_name: 'Product 6', seller: 'Seller 6', dateAdded: '11/07/2021', website: 'amazon' },
+      { product_id: 7, product_name: 'Product 7', seller: 'Seller 7', dateAdded: '14/06/2022', website: 'amazon' },
     ])
   }
 
@@ -132,9 +132,10 @@ export default function Dashboard() {
           <div className="card-group">
             {Array.isArray(products) && products.length > 0 ? (
               products.map((product, index) => (
-                <Product
+                <ProductCard
                   key={index}
-                  product={product.product}
+                  product_id={product.product_id}
+                  product_name={product.product_name}
                   seller={product.seller}
                   dateAdded={product.dateAdded}
                   website={product.website}
