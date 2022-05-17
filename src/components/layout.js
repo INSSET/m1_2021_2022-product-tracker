@@ -8,6 +8,7 @@ export default function Layout({ children }) {
   /* Using bootstrap js */
   useEffect(() => {
     import('bootstrap/dist/js/bootstrap')
+    console.log('env:  ', process.env)
   }, [])
 
   return (

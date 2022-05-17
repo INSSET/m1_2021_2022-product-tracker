@@ -138,13 +138,12 @@ export default function Register() {
                   required
                 />
               </div>
-
-              <button className="btn btn-primary" type="submit" disabled={loading}>
-                Inscription
-              </button>
               <Link className="btn btn-secondary" to="/login">
                 Connexion
               </Link>
+              <button className="btn btn-primary" type="submit" disabled={loading}>
+                Inscription
+              </button>
             </form>
           </div>
         </div>

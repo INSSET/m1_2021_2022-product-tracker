@@ -53,8 +53,12 @@ export default function Login() {
       .then((response) => {
         if (response && response.data) {
           // TODO : Replace this code with a check on status (should be 400)
-          if (response.data.message === 'Pas toutes les informations nécéssaires') {
+          console.log(response.data.datas)
+          if (response.data.datas === 'Pas toutes les informations nécéssaires') {
             toast.error('Au moins une information est manquante', 'error')
+            setLoggedIn(false)
+          } else if (response.data.datas === 'Invalid Credentials') {
+            toast.error("L'email ou le mot de passe est incorrect", 'error')
             setLoggedIn(false)
           } else {
             toast.success('Vous êtes connecté')
@@ -119,13 +123,12 @@ export default function Login() {
                   <div className="error-message"></div>
                 </div>
               </div>
-
-              <button className="btn btn-primary" type="submit" disabled={loading}>
-                Connexion
-              </button>
               <Link className="btn btn-secondary" to="/register">
                 Inscription
               </Link>
+              <button className="btn btn-primary" type="submit" disabled={loading}>
+                Connexion
+              </button>
             </form>
           </div>
         </div>
