@@ -1,0 +1,15 @@
+[data-product] {
+  p.product-name {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+
+  p.product-price-limit,
+  p.product-first-price,
+  p.product-date-added {
+    font-size: 1.2rem;
+    font-weight: 400;
+    margin-bottom: 5px;
+  }
+}

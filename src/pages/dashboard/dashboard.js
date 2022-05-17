@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import 'react-toastify/dist/ReactToastify.css'
 import { toast } from 'react-toastify'
-import Product from '../../components/product'
+import ProductCard from '../../components/productCard'
 import { IoIosAddCircle } from 'react-icons/io'
 import axios from 'axios'
 import Modal from 'react-modal'
@@ -73,7 +73,13 @@ export default function Dashboard() {
         // REMOVE THIS -> TESTING ONLY
         setProducts((p) => [
           ...p,
-          { product: 'Product X', seller: 'seller xxx', dateAdded: '01/05/2022', website: 'aliexpress' },
+          {
+            productId: 1,
+            productName: 'Product X',
+            priceLimit: 20.99,
+            dateAdded: '01/05/2022',
+            website: 'aliexpress',
+          },
         ])
       })
 
@@ -84,13 +90,31 @@ export default function Dashboard() {
   //  Remove this, used only for testing
   const fakeDataProducts = () => {
     setProducts([
-      { product: 'Product 1', seller: 'Seller 1', dateAdded: '01/05/2022', website: 'amazon' },
-      { product: 'Product 2', seller: 'Seller 2', dateAdded: '11/04/2022', website: 'aliexpress' },
-      { product: 'Product 3', seller: 'Seller 3', dateAdded: '05/01/2020', website: 'amazon' },
-      { product: 'Product 4', seller: 'Seller 4', dateAdded: '08/02/2022', website: 'aliexpress' },
-      { product: 'Product 5', seller: 'Seller 5', dateAdded: '10/06/2021', website: 'aliexpress' },
-      { product: 'Product 6', seller: 'Seller 6', dateAdded: '11/07/2021', website: 'amazon' },
-      { product: 'Product 7', seller: 'Seller 7', dateAdded: '14/06/2022', website: 'amazon' },
+      { productId: 1, productName: 'Product 1', priceLimit: 30.2, dateAdded: '01/05/2022', website: 'amazon' },
+      {
+        productId: 2,
+        productName: 'Product 2',
+        priceLimit: 2.11,
+        dateAdded: '11/04/2022',
+        website: 'aliexpress',
+      },
+      { productId: 3, productName: 'Product 3', priceLimit: 20.0, dateAdded: '05/01/2020', website: 'amazon' },
+      {
+        productId: 4,
+        productName: 'Product 4',
+        priceLimit: 10.0,
+        dateAdded: '08/02/2022',
+        website: 'aliexpress',
+      },
+      {
+        productId: 5,
+        productName: 'Product 5',
+        priceLimit: 15.99,
+        dateAdded: '10/06/2021',
+        website: 'aliexpress',
+      },
+      { productId: 6, productName: 'Product 6', priceLimit: 15.99, dateAdded: '11/07/2021', website: 'amazon' },
+      { productId: 7, productName: 'Product 7', priceLimit: 19.99, dateAdded: '14/06/2022', website: 'amazon' },
     ])
   }
 
@@ -111,8 +135,8 @@ export default function Dashboard() {
           type="number"
           step="0.01"
           className={'form-control mb-2'}
-          name="price_limit"
-          id="price_limit"
+          name="priceLimit"
+          id="priceLimit"
           placeholder="Exemple : 15.99"
           min="0.01"
           required
@@ -132,10 +156,11 @@ export default function Dashboard() {
           <div className="card-group">
             {Array.isArray(products) && products.length > 0 ? (
               products.map((product, index) => (
-                <Product
+                <ProductCard
                   key={index}
-                  product={product.product}
-                  seller={product.seller}
+                  productId={product.productId}
+                  productName={product.productName}
+                  priceLimit={product.priceLimit}
                   dateAdded={product.dateAdded}
                   website={product.website}
                 />
