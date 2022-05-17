@@ -84,7 +84,7 @@ export default function Login() {
       {loggedIn && <Navigate to="/dashboard" />}
       <div data-login className="container-fluid">
         <div className="row">
-          <div className="background d-none d-sm-none d-md-none d-lg-block col-xl-9 col-lg-6 p-0">
+          <div className="d-none d-sm-none d-md-none d-lg-block col-xl-9 col-lg-6 p-0">
             <img className="background" src="background.webp" alt="background" />
           </div>
           <div className="col-md-12 col-lg-6 col-xl-3 p-5">
