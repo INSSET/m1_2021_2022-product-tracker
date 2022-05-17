@@ -6,10 +6,11 @@ import Disconnect from '../pages/disconnect/disconnect'
 import Register from '../pages/register/register'
 import Dashboard from '../pages/dashboard/dashboard'
 import NotFound from '../pages/notfound/notfound'
-import { toast } from 'react-toastify'
+import { toast, ToastContainer } from 'react-toastify'
 import jwtDecode from 'jwt-decode'
 import Layout from '../components/layout'
 import Footer from '../components/footer'
+import Product from '../pages/product/product'
 
 export default function Router() {
   function RequireAuth({ children }) {
@@ -39,6 +40,7 @@ export default function Router() {
   const LogoutRoute = ({ Component }) => {
     return (
       <>
+        <ToastContainer />
         <Component />
         <Footer />
       </>
@@ -71,6 +73,14 @@ export default function Router() {
         element={
           <RequireAuth>
             <LoginRoute Component={Dashboard} />
+          </RequireAuth>
+        }
+      />
+      <Route
+        path="product/:idProduct"
+        element={
+          <RequireAuth>
+            <LoginRoute Component={Product} />
           </RequireAuth>
         }
       />

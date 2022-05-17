@@ -78,7 +78,7 @@ export default function Register() {
       {registered && <Navigate to="/login" />}
       <div data-registration className="container-fluid">
         <div className="row">
-          <div className="background d-md-none d-lg-block col-xl-9 col-lg-6 p-0">
+          <div className="background d-none d-sm-none  d-md-none d-lg-block col-xl-9 col-lg-6 p-0">
             <img className="background" src="background.webp" alt="background" />
           </div>
           <div className="col-md-12 col-lg-6 col-xl-3 p-5">
@@ -138,13 +138,12 @@ export default function Register() {
                   required
                 />
               </div>
-
-              <button className="btn btn-primary" type="submit" disabled={loading}>
-                Inscription
-              </button>
               <Link className="btn btn-secondary" to="/login">
                 Connexion
               </Link>
+              <button className="btn btn-primary" type="submit" disabled={loading}>
+                Inscription
+              </button>
             </form>
           </div>
         </div>
