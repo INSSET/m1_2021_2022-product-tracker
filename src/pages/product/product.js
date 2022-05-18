@@ -22,9 +22,9 @@ export default function Product() {
             /*
              * Response format accepted :
              * {
-             * productName: 'string',
-             * priceLimit: float,
-             * dateAdded: date,
+             * product_name: 'string',
+             * price_limit: float,
+             * date_added: date,
              * website: 'string',
              * prices: [
              *   { price: float, date: date },
