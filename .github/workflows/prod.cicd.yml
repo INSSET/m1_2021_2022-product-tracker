@@ -8,7 +8,7 @@ env:
   AUTH_API_URL: https://productracker-zcddpyns6q-lm.a.run.app
 
 jobs:
-  Deploy prod CI:
+  Deploy-prod-CI:
     runs-on: ubuntu-latest
 
     strategy:
