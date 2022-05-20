@@ -12,6 +12,7 @@ export default function Product() {
   const [product, setProduct] = useState(null)
   const { idProduct } = useParams()
   const [options, setOptions] = useState(null)
+  const [typeChart, setTypeChart] = useState(null)
 
   useEffect(() => {
     async function getDetailProduct() {
@@ -46,7 +47,7 @@ export default function Product() {
     } else {
       toast.error("Le produit n'a pas pu être identifié", 'error')
     }
-    //toast.success('Vous êtes connectée')
+    setTypeChart('area')
   }, [idProduct])
 
   //  Remove this, used only for testing
@@ -81,13 +82,17 @@ export default function Product() {
         },
         data: [
           {
-            type: 'line',
+            type: typeChart,
             dataPoints: prices,
           },
         ],
       })
     }
-  }, [product])
+  }, [product, typeChart])
+
+  const onChangeRadioValue = (event) => {
+    setTypeChart(event.target.value)
+  }
 
   return (
     <>
@@ -100,6 +105,21 @@ export default function Product() {
               <p class="product-date-added">Date d'ajout : {product.dateAdded}</p>
               <p class="product-first-price">Prix enregistré à l'ajout : {product.firstPrice} €</p>
               <p class="product-price-limit">Prix d'alerte : {product.priceLimit} €</p>
+              <div onChange={onChangeRadioValue} className="radio-type-charts">
+                <div>
+                  <input type="radio" value="area" name="gender" id="area" defaultChecked />{' '}
+                  <label for="area">Aire</label>
+                </div>
+                <div>
+                  <input type="radio" value="line" name="gender" id="line" /> <label for="line">Ligne</label>
+                </div>
+                <div>
+                  <input type="radio" value="column" name="gender" id="column" /> <label for="column">Colonnes</label>
+                </div>
+                <div>
+                  <input type="radio" value="pie" name="gender" id="pie" /> <label for="pie">Camembert</label>
+                </div>
+              </div>
               <CanvasJSChart options={options} />
             </div>
           ) : (
