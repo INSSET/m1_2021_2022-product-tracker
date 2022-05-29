@@ -19,6 +19,14 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
+      - name: Show where i am
+        run: |
+          pwd
+
+      - name: Whats inside
+        run: |
+          ls -a
+
       - name: Set up Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
