@@ -16,6 +16,14 @@ jobs:
         node-version: [16.x]
 
     steps:
+      - name: Show where i am
+        run: |
+          pwd
+
+      - name: Whats inside
+        run: |
+          ls -a
+
       - name: Authentication on app engine
         id: 'auth'
         uses: 'google-github-actions/auth@v0'
