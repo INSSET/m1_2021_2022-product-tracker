@@ -2,7 +2,7 @@
 import axios from 'axios'
 
 // Put this in env vars (not working for now)
-const apiUrl = process.env.REACT_APP_API_URL || 'https://globetrotteur.df.r.appspot.com/'
+const apiUrl = process.env.REACT_APP_API_URL || 'https://productracker-zcddpyns6q-lm.a.run.app/'
 // Next we make an 'instance' of it
 const instance = axios.create({
   // .. where we make our configurations
