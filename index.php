@@ -11,10 +11,27 @@ $router = new \Bramus\Router\Router();
 // Define routes
 $router->get('/', function() {
     echo "Home page";
+
+    // PHP version 7.4 used here
+    if(extension_loaded("monogodb")){ 
+        try {
+            //$client = new MongoClient("mongodb://root:root@45.9.188.170:27017");
+            
+            //$collection = $client->test;
+    
+            $users_collection = $collection->users;
+    
+            echo "Connected";
+    
+        }
+        catch (Throwable $e) {
+            // catch throwables when the connection is not a success
+            echo "Captured Throwable for connection : " . $e->getMessage() . PHP_EOL;
+        }
+    }else{
+        echo "it's something else";
+    }
 });
-
-
-
 
 // d62585b7bee6d03016234ca363fe1501
 $router->post('/api/mail/send', function() {
