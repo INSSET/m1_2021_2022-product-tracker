@@ -31,6 +31,7 @@ async function getPrice(url) {
       width: 1280,
       height: 720,
     },
+    args: ['--no-sandbox', '--disable-setuid-sandbox']
   });
   // Create a new page in the browser
   var page = await browser.newPage();
