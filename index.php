@@ -12,7 +12,6 @@ $router = new \Bramus\Router\Router();
 $router->get('/', function() {
     echo "Home page";
 
-    // PHP version 7.4 used here
     if(extension_loaded("monogodb")){ 
         try {
             //$client = new MongoClient("mongodb://root:root@45.9.188.170:27017");
