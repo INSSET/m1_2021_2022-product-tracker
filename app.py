@@ -25,3 +25,7 @@ class RouteGetPrice(Resource):
             result = "No product found"
 
         return result, status
+
+
+if __name__ == "__main__":
+    app.run(debug=True)
