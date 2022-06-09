@@ -49,12 +49,12 @@ app.post('/mail/send', (req, res) => {
 
     // create reusable transporter object using the default SMTP transport
     let transporter = nodemailer.createTransport({
-        host: "smtp.gmail.com",
+        host: "smtp.hostinger.com",
         port: 465,
         secure: true, // true for 465, false for other ports
         auth: {
-            user: "tproducttrackerccm@gmail.com",
-            pass: "6RsXhHV5L0Kh",
+            user: "notifier@ccmprojetinsset.tech",
+            pass: "jY06bhMuyJcp@",
         },
         tls: {
             rejectUnauthorized: false
@@ -64,7 +64,7 @@ app.post('/mail/send', (req, res) => {
 
     // send mail with defined transport object
     let info = {
-        from: '"Product Tracker" <producttrackerccm@gmail.com>', // sender address
+        from: '"Product Tracker" <notifier@ccmprojetinsset.tech>', // sender address
         to: "khechinibakr20@gmail.com", // list of receivers
         subject: "Hello ✔", // Subject line
         text: "Notification de prix", // plain text body
