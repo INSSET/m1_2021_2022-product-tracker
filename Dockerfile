@@ -15,4 +15,6 @@ WORKDIR /home/app
 
 RUN composer install
 
+CMD ["symfony", "server:start", "--port=5000"]
+
 
