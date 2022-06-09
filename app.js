@@ -43,9 +43,10 @@ app.get('/users', (req, res) => {
         })
 })
 
-app.post('/mail/send', (req, res) => {
+
+app.post('/mail/send/:id', (req, res) => {
     
-    //let testAccount = await nodemailer.createTestAccount();
+    let userEmail
 
     // create reusable transporter object using the default SMTP transport
     let transporter = nodemailer.createTransport({
@@ -62,22 +63,41 @@ app.post('/mail/send', (req, res) => {
         
     });
 
-    // send mail with defined transport object
-    let info = {
-        from: '"Product Tracker" <notifier@ccmprojetinsset.tech>', // sender address
-        to: "khechinibakr20@gmail.com", // list of receivers
-        subject: "Hello ✔", // Subject line
-        text: "Notification de prix", // plain text body
-        html: "Output" // html body
+    if(ObjectId.isValid(req.params.id)){
+        db.collection('users')
+        .findOne({_id: ObjectId(req.params.id)})
+        .then( user => {
+
+            console.log(user['email'])
+
+            userEmail = JSON.stringify(user.email)
+
+
+            // send mail with defined transport object
+            let info = {
+                from: '"Product Tracker" <notifier@ccmprojetinsset.tech>', // sender address
+                to: userEmail, // list of receivers
+                subject: "Hello ✔", // Subject line
+                text: "Notification de prix", // plain text body
+                html: "Bonjour, Vous avez une notification" // html body
+            }
+            
+            transporter.sendMail(info,(err) => {
+                if(err){
+                    console.log(err)
+                }else{
+                    console.log("Notification Envoyé")
+                }
+            })
+        })
+        .catch( err => {
+            res.status(500).json({error: 'Could not fetch the document'})
+        })    
+    }else{
+        res.status(500).json({error: 'Not a valid doc id'})
     }
+
     
-    transporter.sendMail(info,(err) => {
-        if(err){
-            console.log(err)
-        }else{
-            console.log("Email has sent")
-        }
-    })
 
     //console.log("Message sent: %s", info.messageId);
     
