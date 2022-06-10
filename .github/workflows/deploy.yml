@@ -44,3 +44,10 @@ jobs:
         cluster_name: ${{ env.GKE_CLUSTER }}
         location: ${{ env.GKE_ZONE }}
         credentials: ${{ secrets.GCP_CREDENTIALS }}
+        
+        
+    # Build the Docker image
+    - name: Update Image on Deployment
+      run: |-
+        kubectl config set-context --current --namespace=dev
+        kubectl set image deployment $DEPLOYMENT_NAME $DEPLOYMENT_NAME-sha256-1="gcr.io/${{ secrets.GCP_PROJECT }}/${{ secrets.GCP_APPLICATION }}/${{ env.DEPLOYMENT_NAME }}:latest"
