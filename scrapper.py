@@ -14,7 +14,12 @@ def get_price(url):
         return "ERROR : The URL is not a valid URL !"
     if(is_page_contain_price(soup)):
         price = re.search(r"totalValue:.*\s(.*[0-9]*,[0-9]*)\"", str(soup)).group(1)
-        return float(price.replace(",",".")) if price != None else -1
+        title = re.search(r"\"spanishPlaza\".*title\":\"(.*) \| AliExpress\"", str(soup)).group(1)
+        payload = {
+            "product_name": title,
+            "price": float(price.replace(",",".")) if price != None else -1
+        }
+        return payload
     else:
         return -1
     

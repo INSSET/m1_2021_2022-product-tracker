@@ -29,3 +29,8 @@ jobs:
       run: |
         pip install pylint
         pylint --fail-under=7 app.py
+
+    - name: Test with pytest
+      run: |
+        pip install pytest
+        python -m pytest
