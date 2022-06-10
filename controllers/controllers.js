@@ -1,4 +1,5 @@
 import {callRegisterApi, callLoginApi} from "../services/callAuth.js";
+import { getProductsByUserUUID } from "../services/callDatabase.js";
 
 export const registerAction = async (req, res) => {
 
@@ -27,3 +28,35 @@ export const loginAction = async (req, res) => {
 
     return res.status(200).json({datas: loginDatas});
 }
+
+export const getProductsByUuidAction = (req, res) => {
+    const uuid = req.query.userUUID;
+
+    if (uuid == undefined) {
+        res.status(400).json({message: "Pas de paramètres userUUID donné"});
+    }
+
+    const result = getProductsByUserUUID(uuid, (err, rows) => {
+        if (err) throw err;
+
+        var toReturnedArray = [];
+
+        var arrayRows = Object.values(JSON.parse(JSON.stringify(rows)));
+
+        arrayRows.forEach( row => {
+            let newObject = {};
+
+            newObject.product_id = row.idProduct
+            newObject.product_name = row.nom
+            newObject.date_added = row.createdAt
+            newObject.website = row.url
+
+            toReturnedArray.push(newObject);
+        })
+
+        res.status(200).json(toReturnedArray);
+    });
+}
+
+
+
