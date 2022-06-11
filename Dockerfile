@@ -1,4 +1,4 @@
-FROM node:latest AS app
+FROM node:lts-gallium AS app
 
 LABEL name "tcrm/boulanger-crawler:v1"
 LABEL org.opencontainers.image.authors "tocram1@gmail.com"
