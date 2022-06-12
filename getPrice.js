@@ -16,7 +16,10 @@ function checkUrl(url) {
 // Function for getting the price of a product on Amazon
 async function getPrice(url) {
   if (!checkUrl(url)) {
-    return { error: "Invalid URL" };
+    return { 
+      error: "Invalid URL",
+      code: 400
+    };
   }
 
   // Create a new browser
@@ -26,23 +29,34 @@ async function getPrice(url) {
       width: 1280,
       height: 720,
     },
+    args: ['--no-sandbox', '--disable-setuid-sandbox']
   });
   // Create a new page in the browser
   var page = await browser.newPage();
   await page.setUserAgent(USER_AGENT);
   try {
     // Go to the url
-    await page.goto(url);
-    // Wait for the page to load
-    await page.waitForSelector(SELECTORS.productTitle, { visible: true });
+    const response = await page.goto(url);
+    // only continue if we don't have an error code
+    if (response.status() !== 200) {
+      return {
+        code: response.status(),
+        error: `Status code ${response.status()}: Product may be unavailable, or website may be down... or crawler was banned.`
+      };
+    }
 
     // get the price of the product
     try {
+      // Wait for the page to load
+      await page.waitForSelector(SELECTORS.productTitle, { visible: true, timeout: 10000 });
+
+      // get the product data
       let price = await page.$eval(SELECTORS.productPrice, (el) => el.innerText);
       let prod_name = await page.$eval(SELECTORS.productTitle, (el) => el.innerText);
       // This one is kind of shit, as it's not precisely only the name of the seller... But I fail to find a better way.
       let seller_name = await page.$eval(SELECTORS.sellerName, (el) => el.innerText);
       return {
+        code: 200,
         price: price,
         prod_name: prod_name,
         seller_name: seller_name,
@@ -50,11 +64,13 @@ async function getPrice(url) {
     } catch (error) {
       return {
         error: `${error}: Product may be unavailable, or user didn't specify a valid URL for a specific product.`,
+        code: 500
       };
     }
   } catch (error) {
     return {
       error: `${error}: Product may be unavailable, or website may be down... or crawler was banned.`,
+      code: 500
     };
   } finally {
     // Free the resources
