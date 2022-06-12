@@ -4,11 +4,11 @@ import { toast } from 'react-toastify'
 import axiosConfig from '../../axiosConfig'
 import { useParams } from 'react-router-dom'
 import CanvasJSReact from '../../canvasjs/canvasjs.react'
+import dateFormat from 'dateformat'
+
 var CanvasJSChart = CanvasJSReact.CanvasJSChart
 
 export default function Product() {
-  //   const [productUrl, setProductUrl] = useState('')
-  //const [priceLimit, setPriceLimit] = useState(null)
   const [product, setProduct] = useState(null)
   const { idProduct } = useParams()
   const [options, setOptions] = useState(null)
@@ -33,13 +33,12 @@ export default function Product() {
              *   ...
              * ]},
              */
-            setProduct(response.data.datas)
+            setProduct(response.data)
           }
         })
         .catch((err) => {
           toast.error('Erreur de récupération des informations du produit', 'error')
           console.error(`Error: ${err}`)
-          fakeDataProducts()
         })
     }
     if (idProduct) {
@@ -50,59 +49,18 @@ export default function Product() {
     setTypeChart('area')
   }, [idProduct])
 
-  //  Remove this, used only for testing
-  const fakeDataProducts = () => {
-    setProduct({
-      productName: 'Raspberry Pi 4 B 8 Go 4 x 1,5 GHz, Processeur ARM Cortex-A72',
-      priceLimit: 269.0,
-      dateAdded: '01/05/2022',
-      website: 'amazon',
-      prices: [
-        { price: 289.0, date: '2022-01-02' },
-        { price: 269.0, date: '2022-01-03' },
-        { price: 259.0, date: '2022-01-04' },
-        { price: 279.59, date: '2022-01-05' },
-        { price: 279.0, date: '2022-01-06' },
-        { price: 286.2, date: '2022-01-07' },
-        { price: 289.0, date: '2022-01-08' },
-        { price: 279.0, date: '2022-01-09' },
-        { price: 275.0, date: '2022-01-10' },
-        { price: 279.0, date: '2022-01-11' },
-        { price: 279.0, date: '2022-01-12' },
-        { price: 286.0, date: '2022-01-13' },
-        { price: 279.0, date: '2022-01-14' },
-        { price: 286.2, date: '2022-01-15' },
-        { price: 286.2, date: '2022-01-16' },
-        { price: 286.2, date: '2022-01-17' },
-        { price: 289.0, date: '2022-01-18' },
-        { price: 279.0, date: '2022-01-19' },
-        { price: 275.0, date: '2022-01-20' },
-        { price: 279.0, date: '2022-01-21' },
-        { price: 279.0, date: '2022-01-22' },
-        { price: 286.0, date: '2022-01-23' },
-        { price: 286.0, date: '2022-01-24' },
-        { price: 286.0, date: '2022-01-25' },
-        { price: 279.0, date: '2022-01-26' },
-        { price: 286.2, date: '2022-01-27' },
-        { price: 289.0, date: '2022-01-28' },
-        { price: 279.0, date: '2022-01-29' },
-        { price: 275.0, date: '2022-01-30' },
-        { price: 279.0, date: '2022-01-31' },
-      ],
-    })
-  }
-
   useEffect(() => {
     if (product && product.prices && product.prices.length > 0) {
       const prices = product.prices.map((price) => {
+        const date = new Date(price.date)
         return {
-          x: new Date(price.date),
-          y: price.price,
+          x: new Date(dateFormat(date, 'yyyy-mm-dd')),
+          y: parseFloat(price.price),
         }
       })
       setOptions({
         title: {
-          text: `Évolution du prix depuis le ${product.dateAdded}`,
+          text: `Évolution du prix depuis le ${new Date(product.date_added).toLocaleDateString()}`,
         },
         axisX: {
           valueFormatString: 'DD-MMM',
@@ -111,9 +69,9 @@ export default function Product() {
           valueFormatString: '# €',
           stripLines: [
             {
-              label: `Limite de prix : ${product.priceLimit} €`,
-              startValue: product.priceLimit - 0.1,
-              endValue: product.priceLimit + 0.1,
+              label: `Limite de prix : ${product.price_limit} €`,
+              startValue: parseFloat(product.price_limit - 0.1),
+              endValue: parseFloat(product.price_limit + 0.1),
               color: 'red',
             },
           ],
@@ -140,10 +98,10 @@ export default function Product() {
         <div className="page-content mb-5">
           {product ? (
             <div className="mb-2">
-              <p className="product-name">{product.productName}</p>
-              <p className="product-date-added">Date d'ajout : {product.dateAdded}</p>
+              <p className="product-name">{product.product_name}</p>
+              <p className="product-date-added">Date d'ajout : {new Date(product.date_added).toLocaleDateString()}</p>
               <p className="product-first-price">Prix enregistré à l'ajout : {product.prices[0].price} €</p>
-              <p className="product-price-limit">Prix d'alerte : {product.priceLimit} €</p>
+              <p className="product-price-limit">Prix d'alerte : {product.price_limit} €</p>
               <div onChange={onChangeRadioValue} className="radio-type-charts">
                 <div>
                   <input type="radio" value="area" name="gender" id="area" defaultChecked />{' '}
