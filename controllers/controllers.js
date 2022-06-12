@@ -1,5 +1,5 @@
-import { callRegisterApi, callLoginApi } from "../services/callAuth.js";
-import { getProductsByUserUUID } from "../services/callDatabase.js";
+import {callRegisterApi, callLoginApi} from "../services/callAuth.js";
+import { getProductsByUserUUID, getProductById } from "../services/callDatabase.js";
 
 export const registerAction = async (req, res) => {
   if (
@@ -62,8 +62,45 @@ export const getProductsByUuidAction = (req, res) => {
       newObject.website = row.website;
 
       toReturnedArray.push(newObject);
-    });
+     })
 
-    return res.status(200).json(toReturnedArray);
-  });
-};
+        return res.status(200).json(toReturnedArray);
+    });
+}
+
+export const getProductByIdAction = (req, res) => {
+    const id = req.params.id;
+
+        getProductById(id, (err, rows) => {
+            if (err) return res.status(500);
+
+            if (Object.keys(rows).length === 0) {
+                return res.status(404).json({message: "Product not found"});
+            }
+
+            var arrayRows = Object.values(JSON.parse(JSON.stringify(rows)));
+            
+            if (arrayRows == []) {
+                res.status(404);
+            }
+            
+            var datas = {};
+            datas.product_name = arrayRows[0].nom;
+            datas.price_limit = arrayRows[0].priceLimit;
+            datas.website = arrayRows[0].url;
+            datas.date_added = arrayRows[0].createdAt;
+    
+            let prices = []
+    
+            arrayRows.forEach( (row) => {
+                let bufferData = {}
+                bufferData.price = row.price.toFixed(2)
+                bufferData.date = row.date
+                prices.push(bufferData);
+            })
+    
+            datas.prices = prices;
+    
+            return res.status(200).json(datas);
+        })
+}

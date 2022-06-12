@@ -24,11 +24,20 @@ const createConnection = () => {
 export const getProductsByUserUUID = (userUuid, callback) => {
   const connection = createConnection();
 
-  connection.query(
-    `SELECT Product.idProduct, Product.nom as 'productName', pricelimit, Product.createdAt, Website.nom as 'website' FROM Product 
+    connection.query(`SELECT Product.idProduct, Product.nom as 'productName', pricelimit, Product.createdAt, Website.nom as 'website' FROM Product 
                     INNER JOIN UserProduct ON Product.idProduct = UserProduct.idProduct    
                     INNER JOIN Website ON Product.idWebsite = Website.id
                     WHERE Product.idProduct in (SELECT idProduct FROM UserProduct WHERE userUUID = "${userUuid}")`,
     callback
   );
-};
+}
+
+export const getProductById = (id, callback) => {
+    const connection = createConnection();
+
+    connection.query(`SELECT DISTINCT pp.price, pp.date, p.nom, p.createdAt, p.url, up.priceLimit
+    FROM Product as p 
+    INNER JOIN ProductPrice as pp ON pp.idProduct = p.idProduct
+    INNER JOIN UserProduct as up ON up.idProduct = pp.idProduct
+    WHERE p.idProduct = ${id}`, callback);
+}
