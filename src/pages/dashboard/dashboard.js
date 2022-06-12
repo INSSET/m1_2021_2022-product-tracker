@@ -24,7 +24,6 @@ export default function Dashboard() {
   const [priceLimit, setPriceLimit] = useState(null)
   const [open, setOpen] = useState(false)
   const closeModal = () => setOpen(false)
-  const [uuidUser, setUuidUser] = useState(null)
   useEffect(() => {
     const uuid = Cookies.get('uuid')
 
