@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react'
 import 'react-toastify/dist/ReactToastify.css'
 import { toast } from 'react-toastify'
-import axios from 'axios'
 import Modal from 'react-modal'
 import axiosConfig from '../../axiosConfig'
 import Cookies from 'js-cookie'
 import ProductCard from '../../components/productCard'
 import { IoIosAddCircle } from 'react-icons/io'
+import WEBSITE_ASSETS from '../../constants/websitesAssets'
 
 const customStyles = {
   content: {
@@ -20,104 +20,72 @@ const customStyles = {
 
 export default function Dashboard() {
   const [products, setProducts] = useState([])
-  const [productUrl, setProductUrl] = useState('')
-  const [priceLimit, setPriceLimit] = useState(null)
   const [open, setOpen] = useState(false)
   const closeModal = () => setOpen(false)
-  useEffect(() => {
+
+  async function getProducts() {
     const uuid = Cookies.get('uuid')
-
-    async function getProducts() {
-      await axiosConfig
-        .get(`/products?userUUID=${uuid}`, {
-          key_authentification: JSON.stringify('KEY'),
-        })
-        .then((response) => {
-          if (response && response.data) {
-            /*
-             * Response format accepted : [{product: 'product', seller: 'seller', dateAdded: '01/05/2022', website: 'amazon'}, ...]
-             */
-            setProducts(response.data)
-          }
-        })
-        .catch((err) => {
-          toast.error('Erreur de récupération des produits', 'error')
-          console.error(`Error: ${err}`)
-          fakeDataProducts()
-        })
-    }
-    getProducts()
-    //toast.success('Vous êtes connectée')
-  }, [])
-
-  const handleAddProduct = async (event) => {
-    event.preventDefault()
-    setProductUrl(event.target[0].value)
-    setPriceLimit(event.target[1].value)
-    await axios
-      .post('/api/product', {
+    await axiosConfig
+      .get(`/products?userUUID=${uuid}`, {
         key_authentification: JSON.stringify('KEY'),
-        productUrl: productUrl,
-        priceLimit: priceLimit,
       })
       .then((response) => {
         if (response && response.data) {
           /*
-           * Response format accepted : {product: 'product', seller: 'seller', dateAdded: '01/05/2022', website: 'amazon'}
+           * Response format accepted : [{product: 'product', seller: 'seller', dateAdded: '01/05/2022', website: 'amazon'}, ...]
            */
-          setProducts((p) => [...p, response.data])
+          setProducts(response.data)
         }
       })
       .catch((err) => {
         toast.error('Erreur de récupération des produits', 'error')
         console.error(`Error: ${err}`)
-
-        // REMOVE THIS -> TESTING ONLY
-        setProducts((p) => [
-          ...p,
-          {
-            productId: 1,
-            productName: 'Product X',
-            priceLimit: 20.99,
-            dateAdded: '01/05/2022',
-            website: 'aliexpress',
-          },
-        ])
       })
-
-    closeModal()
-    toast.success('Votre produit a été ajouté')
   }
 
-  //  Remove this, used only for testing
-  const fakeDataProducts = () => {
-    setProducts([
-      { productId: 1, productName: 'Product 1', priceLimit: 30.2, dateAdded: '01/05/2022', website: 'amazon' },
-      {
-        productId: 2,
-        productName: 'Product 2',
-        priceLimit: 2.11,
-        dateAdded: '11/04/2022',
-        website: 'aliexpress',
-      },
-      { productId: 3, productName: 'Product 3', priceLimit: 20.0, dateAdded: '05/01/2020', website: 'amazon' },
-      {
-        productId: 4,
-        productName: 'Product 4',
-        priceLimit: 10.0,
-        dateAdded: '08/02/2022',
-        website: 'aliexpress',
-      },
-      {
-        productId: 5,
-        productName: 'Product 5',
-        priceLimit: 15.99,
-        dateAdded: '10/06/2021',
-        website: 'aliexpress',
-      },
-      { productId: 6, productName: 'Product 6', priceLimit: 15.99, dateAdded: '11/07/2021', website: 'amazon' },
-      { productId: 7, productName: 'Product 7', priceLimit: 19.99, dateAdded: '14/06/2022', website: 'amazon' },
-    ])
+  useEffect(() => {
+    getProducts()
+  }, [])
+
+  const handleAddProduct = async (event) => {
+    event.preventDefault()
+
+    let productName = event.target['productName'].value
+    let productUrl = event.target['productUrl'].value
+    let priceLimit = event.target['priceLimit'].value
+
+    let domain
+
+    if (productUrl) {
+      domain = new URL(productUrl)
+      domain = domain.hostname
+      domain = domain.replace('www.', '')
+      domain = domain.split('.')[0]
+    }
+
+    if (productName && productUrl && priceLimit && domain && WEBSITE_ASSETS[domain] != null) {
+      await axiosConfig
+        .post('add-product', {
+          productName: productName,
+          productUrl: productUrl,
+          priceLimit: priceLimit,
+          website: domain,
+        })
+        .then((response) => {
+          if (response) {
+            getProducts()
+            toast.success('Votre produit a été ajouté')
+          }
+        })
+        .catch((err) => {
+          toast.error('Erreur de récupération des produits', 'error')
+          console.error(`Error: ${err}`)
+        })
+
+      closeModal()
+    } else {
+      toast.warn('Erreur sur les informations saisies ou le site nest pas reférencé', 'warning')
+    }
   }
 
   const PopupAddProduct = () => (
@@ -127,8 +95,17 @@ export default function Dashboard() {
         <input
           type="text"
           className={'form-control mb-2'}
-          name="product_url"
-          id="product_url"
+          name="productName"
+          id="productName"
+          placeholder="Nom du produit"
+          required
+        />
+
+        <input
+          type="text"
+          className={'form-control mb-2'}
+          name="productUrl"
+          id="productUrl"
           placeholder="https://www.amazon.fr/Apple-iPhone-13-128-Go-Comprend-EarPods/dp/B09G9171GV?th=1"
           required
         />

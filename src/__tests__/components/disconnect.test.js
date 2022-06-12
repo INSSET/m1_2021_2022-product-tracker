@@ -1,8 +1,6 @@
-import { render, screen } from '@testing-library/react'
 import Disconnect from '../../pages/disconnect/disconnect'
 import { BrowserRouter } from 'react-router-dom'
 import ShallowRenderer from 'react-test-renderer/shallow' // ES6
-import Router from '../../routes/router'
 
 let container
 
