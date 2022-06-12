@@ -1,5 +1,5 @@
 import {callRegisterApi, callLoginApi} from "../services/callAuth.js";
-import { getProductsByUserUUID } from "../services/callDatabase.js";
+import { getProductsByUserUUID, getProductById } from "../services/callDatabase.js";
 
 export const registerAction = async (req, res) => {
 
@@ -56,6 +56,30 @@ export const getProductsByUuidAction = (req, res) => {
 
         res.status(200).json(toReturnedArray);
     });
+}
+
+export const getProductByIdAction = (req, res) => {
+    const id = req.params.id;
+
+    getProductById(id, (err, rows) => {
+        var arrayRows = Object.values(JSON.parse(JSON.stringify(rows)));
+        
+        var datas = {};
+        datas.product_name = arrayRows[0].nom;
+        datas.price_limit = arrayRows[0].priceLimit;
+        datas.website = arrayRows[0].url;
+        datas.date_added = arrayRows[0].createdAt;
+
+        var prices = []
+
+        arrayRows.forEach( (row) => {
+            let bufferData = {}
+            bufferData.price = row.price.toFixed(2)
+        })
+
+        console.log(datas);
+
+    } )
 }
 
 
