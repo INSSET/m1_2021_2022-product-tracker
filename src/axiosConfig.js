@@ -9,7 +9,6 @@ const instance = axios.create({
   // .. where we make our configurations
   headers: {
     'Content-Type': 'application/json',
-    'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept, Authorization',
   },
   baseURL: apiUrl,
 })
