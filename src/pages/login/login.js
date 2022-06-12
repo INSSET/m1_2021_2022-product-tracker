@@ -61,10 +61,11 @@ export default function Login() {
           } else {
             toast.success('Vous êtes connecté')
             const expireTime = 24 * 60 * 60 // 1 Day
-            const OPTIONS = { expires: expireTime, path: '' }
+            const OPTIONS = { expires: expireTime }
             Cookies.set('auth_token', response.data.datas.token, OPTIONS)
             Cookies.set('firstname', response.data.datas.first_name, OPTIONS)
             Cookies.set('lastname', response.data.datas.last_name, OPTIONS)
+            Cookies.set('uuid', response.data.datas._id, OPTIONS)
             setLoggedIn(true)
           }
         }
