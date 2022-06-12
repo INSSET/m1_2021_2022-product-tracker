@@ -8,9 +8,18 @@ En outils de développement, j’utilise **Jest** pour les tests unitaires (TODO
 
 > *Dans le futur, j’utiliserai peut-être **Swagger**. pour avoir une doc d’API propre, bien que l’API soit très simpliste.*
 
-## Utiliser le module
+## Construire et lancer le conteneur du scrapper
 
 Ces commandes peuvent vous permettre d’utiliser le crawler :
 
-- `npm run dev` pour lancer le crawler en dev (avec rechargement auto du code en cas de modif.).
-- `npm run start` pour lancer le crawler en prod (sans rechargement auto).
+- `docker build . -t tcrm/boulanger-crawler:v1` pour construire le conteneur.
+- `docker run --name "boulanger-scrapper" -p 8080:5000 -d tcrm/boulanger-crawler:v1` pour lancer le conteneur et le rendre accessible localement sur le port 8080.
+- Vous pourrez ensuite lancer une requête par exemple sur `http://localhost:8080/getPrice?url=https%3A%2F%2Fwww.boulanger.com%2Fref%2F1119688` pour recevoir une réponse de ce style :
+  ```json
+  {
+  	"product_name": "Platine vinyle Audio technica AT-LP60XBK",
+  	"price": "149,00€"
+  }
+  ```
+
+  
