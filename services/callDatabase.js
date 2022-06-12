@@ -1,31 +1,35 @@
-import { createRequire } from 'module';
+import { createRequire } from "module";
 const require = createRequire(import.meta.url);
 
-const mysql = require('mysql');
+const mysql = require("mysql");
 
 const createConnection = () => {
-    const con = mysql.createConnection({
-        host: "45.9.188.170",
-        port: "3306",
-        user: "scra_per",
-        password: "gHHpwjrqwCtGou",
-        database: "scra_per"
-    });
+  const con = mysql.createConnection({
+    host: "45.9.188.170",
+    port: "3306",
+    user: "scra_per",
+    password: "gHHpwjrqwCtGou",
+    database: "scra_per",
+  });
 
-    con.connect( (err) => {
-        if (err) throw err;
+  con.connect((err) => {
+    if (err) throw err;
 
-        console.log("Connection a la base ok");
-    } )
+    console.log("Connection a la base ok");
+  });
 
-    return con;
-}
+  return con;
+};
 
 export const getProductsByUserUUID = (userUuid, callback) => {
-    const connection = createConnection();
+  const connection = createConnection();
 
-    connection.query(`SELECT * FROM Product WHERE idProduct in (SELECT idProduct FROM UserProduct WHERE userUUID = "${userUuid}")`,
-        callback);
+    connection.query(`SELECT Product.idProduct, Product.nom as 'productName', pricelimit, Product.createdAt, Website.nom as 'website' FROM Product 
+                    INNER JOIN UserProduct ON Product.idProduct = UserProduct.idProduct    
+                    INNER JOIN Website ON Product.idWebsite = Website.id
+                    WHERE Product.idProduct in (SELECT idProduct FROM UserProduct WHERE userUUID = "${userUuid}")`,
+    callback
+  );
 }
 
 export const getProductById = (id, callback) => {
@@ -36,5 +40,4 @@ export const getProductById = (id, callback) => {
     INNER JOIN ProductPrice as pp ON pp.idProduct = p.idProduct
     INNER JOIN UserProduct as up ON up.idProduct = pp.idProduct
     WHERE p.idProduct = ${id}`, callback);
-    
 }
