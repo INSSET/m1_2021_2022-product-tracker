@@ -32,8 +32,9 @@ export const getProductById = (id, callback) => {
     const connection = createConnection();
 
     connection.query(`SELECT DISTINCT pp.price, pp.date, p.nom, p.createdAt, p.url, up.priceLimit
-        FROM Product as p 
-        INNER JOIN ProductPrice as pp ON pp.idProduct = p.idProduct
-        INNER JOIN UserProduct as up ON up.idProduct = pp.idProduct
-        WHERE p.idProduct = ${id} AND pp.price != 0;`, callback);
+    FROM Product as p 
+    INNER JOIN ProductPrice as pp ON pp.idProduct = p.idProduct
+    INNER JOIN UserProduct as up ON up.idProduct = pp.idProduct
+    WHERE p.idProduct = ${id}`, callback);
+    
 }

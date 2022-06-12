@@ -33,11 +33,11 @@ export const getProductsByUuidAction = (req, res) => {
     const uuid = req.query.userUUID;
 
     if (uuid == undefined) {
-        res.status(400).json({message: "Pas de paramètres userUUID donné"});
+        return res.status(400).json({message: "Pas de paramètres userUUID donné"});
     }
 
     const result = getProductsByUserUUID(uuid, (err, rows) => {
-        if (err) throw err;
+        if (err) res.status(404);
 
         var toReturnedArray = [];
 
@@ -54,32 +54,45 @@ export const getProductsByUuidAction = (req, res) => {
             toReturnedArray.push(newObject);
         })
 
-        res.status(200).json(toReturnedArray);
+        return res.status(200).json(toReturnedArray);
     });
 }
 
 export const getProductByIdAction = (req, res) => {
     const id = req.params.id;
 
-    getProductById(id, (err, rows) => {
-        var arrayRows = Object.values(JSON.parse(JSON.stringify(rows)));
-        
-        var datas = {};
-        datas.product_name = arrayRows[0].nom;
-        datas.price_limit = arrayRows[0].priceLimit;
-        datas.website = arrayRows[0].url;
-        datas.date_added = arrayRows[0].createdAt;
+        getProductById(id, (err, rows) => {
+            if (err) return res.status(500);
 
-        var prices = []
+            if (Object.keys(rows).length === 0) {
+                return res.status(404).json({message: "Product not found"});
+            }
 
-        arrayRows.forEach( (row) => {
-            let bufferData = {}
-            bufferData.price = row.price.toFixed(2)
+            var arrayRows = Object.values(JSON.parse(JSON.stringify(rows)));
+            
+            if (arrayRows == []) {
+                res.status(404);
+            }
+            
+            var datas = {};
+            datas.product_name = arrayRows[0].nom;
+            datas.price_limit = arrayRows[0].priceLimit;
+            datas.website = arrayRows[0].url;
+            datas.date_added = arrayRows[0].createdAt;
+    
+            let prices = []
+    
+            arrayRows.forEach( (row) => {
+                let bufferData = {}
+                bufferData.price = row.price.toFixed(2)
+                bufferData.date = row.date
+                prices.push(bufferData);
+            })
+    
+            datas.prices = prices;
+    
+            return res.status(200).json(datas);
         })
-
-        console.log(datas);
-
-    } )
 }
 
 
