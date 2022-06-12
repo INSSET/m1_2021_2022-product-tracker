@@ -55,7 +55,6 @@ async function getPrice(url) {
       let prod_name = await page.$eval(SELECTORS.productTitle, (el) => el.innerText);
       // This one is kind of shit, as it's not precisely only the name of the seller... But I fail to find a better way.
       let seller_name = await page.$eval(SELECTORS.sellerName, (el) => el.innerText);
-      console.log(seller_name);
       return {
         code: 200,
         price: price,
