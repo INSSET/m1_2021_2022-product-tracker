@@ -6,7 +6,7 @@ export default function ProductCard({ productId, productName, priceLimit, dateAd
   const [imgSrcWebsite, setImgSrcWebsite] = useState(null)
 
   useEffect(() => {
-    setImgSrcWebsite(WEBSITE_ASSETS[website])
+    setImgSrcWebsite(WEBSITE_ASSETS[website.toLowerCase()])
   }, [website])
 
   return (

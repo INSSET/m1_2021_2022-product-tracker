@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react'
 import 'react-toastify/dist/ReactToastify.css'
 import { toast } from 'react-toastify'
-import ProductCard from '../../components/productCard'
-import { IoIosAddCircle } from 'react-icons/io'
 import axios from 'axios'
 import Modal from 'react-modal'
 import axiosConfig from '../../axiosConfig'
+import Cookies from 'js-cookie'
+import ProductCard from '../../components/productCard'
+import { IoIosAddCircle } from 'react-icons/io'
 
 const customStyles = {
   content: {
@@ -23,11 +24,12 @@ export default function Dashboard() {
   const [priceLimit, setPriceLimit] = useState(null)
   const [open, setOpen] = useState(false)
   const closeModal = () => setOpen(false)
-
   useEffect(() => {
+    const uuid = Cookies.get('uuid')
+
     async function getProducts() {
       await axiosConfig
-        .get('/products', {
+        .get(`/products?userUUID=${uuid}`, {
           key_authentification: JSON.stringify('KEY'),
         })
         .then((response) => {
@@ -158,10 +160,10 @@ export default function Dashboard() {
               products.map((product, index) => (
                 <ProductCard
                   key={index}
-                  productId={product.productId}
-                  productName={product.productName}
-                  priceLimit={product.priceLimit}
-                  dateAdded={product.dateAdded}
+                  productId={product.product_id}
+                  productName={product.product_name}
+                  priceLimit={product.price_limit}
+                  dateAdded={new Date(product.date_added).toLocaleDateString()}
                   website={product.website}
                 />
               ))

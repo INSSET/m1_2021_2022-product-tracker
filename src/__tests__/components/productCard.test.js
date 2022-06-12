@@ -5,7 +5,7 @@ import ProductCard from '../../components/productCard'
 test('render a product', () => {
   render(
     <BrowserRouter>
-      <ProductCard productId={1} productName={'Product 1'} priceLimit={15} dateAdded={'11-02-2022'} />
+      <ProductCard productId={1} productName={'Product 1'} priceLimit={15} dateAdded={'11-02-2022'} website="amazon" />
     </BrowserRouter>
   )
   const productName = screen.getAllByText('Product 1')
