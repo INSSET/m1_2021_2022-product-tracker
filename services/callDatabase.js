@@ -41,3 +41,38 @@ export const getProductById = (id, callback) => {
     INNER JOIN UserProduct as up ON up.idProduct = pp.idProduct
     WHERE p.idProduct = ${id}`, callback);
 }
+
+const getWebsiteId = (website, callback) => {
+    const connection = createConnection();
+
+    connection.query(`SELECT id FROM Website WHERE nom LIKE '${website}'`, callback);
+}
+
+export const addProductInDb = (datas, callback) => {
+    const connection = createConnection();
+
+    getWebsiteId(datas.website, (err, row) => {
+        if (err) throw err;
+
+        var rows = Object.values(JSON.parse(JSON.stringify(row)));
+        let websiteId = rows[0].id;
+
+        if (websiteId == undefined) {
+            throw "Aucun site associé au nom";
+        }
+
+        let currentDate = new Date().toISOString().slice(0, 19).replace('T', ' ');
+
+        connection.query(`INSERT INTO Product 
+        (nom, url, idWebsite, createdAt, updatedAt, target_price)
+            VALUES (
+                '${datas.productName}',
+                '${datas.productUrl}',
+                ${websiteId},
+                '${currentDate}',
+                '${currentDate}', 
+                ${datas.priceLimit}
+                )
+        `, callback);
+    })
+}
