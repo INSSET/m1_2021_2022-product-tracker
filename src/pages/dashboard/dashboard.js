@@ -53,6 +53,7 @@ export default function Dashboard() {
     let productName = event.target['productName'].value
     let productUrl = event.target['productUrl'].value
     let priceLimit = event.target['priceLimit'].value
+    let userUUID = Cookies.get('uuid')
 
     let domain
 
@@ -70,6 +71,7 @@ export default function Dashboard() {
           productUrl: productUrl,
           priceLimit: priceLimit,
           website: domain,
+          userUUID: userUUID,
         })
         .then((response) => {
           if (response) {
