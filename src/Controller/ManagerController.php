@@ -9,6 +9,7 @@ use App\Entity\Productprice;
 use Doctrine\ORM\EntityManagerInterface as EntityManager;
 use App\Entity\Product;
 use App\Service\PriceService;
+use App\Entity\Userproduct;
 
 class ManagerController extends \Symfony\Bundle\FrameworkBundle\Controller\AbstractController
 {
@@ -23,9 +24,10 @@ class ManagerController extends \Symfony\Bundle\FrameworkBundle\Controller\Abstr
               ]);
           }
 
-        $price = $price_service->getPrice($data['productUrl'], $data['sellerId']);
+          $price = $price_service->getPrice($data['productUrl'], $data['sellerId']);
 
         $product = $entityManager->find(Product::class, $data['productId']);
+
 
         $productPrice = new Productprice();
         $productPrice->setDate(new \DateTime());
@@ -49,4 +51,6 @@ class ManagerController extends \Symfony\Bundle\FrameworkBundle\Controller\Abstr
             ]
         );
     }
+
+
 }
