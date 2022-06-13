@@ -79,7 +79,7 @@ app.post('/mail/send/:id', (req, res) => {
                 to: userEmail, // list of receivers
                 subject: "Hello ✔", // Subject line
                 text: "Notification de prix", // plain text body
-                html: "Bonjour, Vous avez une notification" // html body
+                html: "Bonjour, Le prix de votre article a baissé" // html body
             }
             
             transporter.sendMail(info,(err) => {
@@ -87,6 +87,7 @@ app.post('/mail/send/:id', (req, res) => {
                     console.log(err)
                 }else{
                     console.log("Notification Envoyé")
+                    return res.status(200)
                 }
             })
         })
