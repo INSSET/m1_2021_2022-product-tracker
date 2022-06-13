@@ -7,8 +7,8 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 class PriceService
 {
     //TODO API entry..
-    CONST API_URL = 'tobedetermined.com';
-    CONST API_KEY = 'tobedetermined';
+    CONST URL_BOULANGER = 'http://boulanger-crawler-service:5000';
+    CONST URL_ALIEXPRESS = 'http://aliexpress-crawler-service:5000';
 
 
 
@@ -19,33 +19,26 @@ class PriceService
         $this->client = $client;
     }
 
-    public function getAmazonPrice(string $url): float
+    public function getBoulangerPrice(string $url)
     {
-        //    $endpoint = sprintf('%s/getPrice/%s', self::API_URL, $data['productUrl']);
+            $endpoint = sprintf('%s/getPrice/?url=%s', self::URL_BOULANGER, $url);
 
-        /*     $price = $this->client->request('GET', $endpoint, [
-                 'headers' => [
-                     'X-API-KEY' => self::API_KEY
-                 ]
-             ]);*/
+             return $price = $this->client->request('GET', $endpoint);
     }
 
-    public function getAliExpressPrice(string $url): float
+    public function getAliExpressPrice(string $url)
     {
-        //    $endpoint = sprintf('%s/getPrice/%s', self::API_URL, $data['productUrl']);
+        $endpoint = sprintf('%s/getPrice/?url=%s', self::URL_ALIEXPRESS, $url);
 
-        /*     $price = $this->client->request('GET', $endpoint, [
-                 'headers' => [
-                     'X-API-KEY' => self::API_KEY
-                 ]
-             ]);*/
+        return $price = $this->client->request('GET', $endpoint);
     }
+
 
     public function getPrice(string $url, string $sellerId): float
     {
         switch ($sellerId){
             case '1':
-                $price = $this->getAmazonPrice($url);
+                $price = $this->getBoulangerPrice($url);
                 break;
             case '2':
                 $price = $this->getAliExpressPrice($url);

@@ -23,11 +23,9 @@ class ManagerController extends \Symfony\Bundle\FrameworkBundle\Controller\Abstr
               ]);
           }
 
-      //  $price = $price_service->getPrice($data['productUrl'], $data['sellerId']);
+        $price = $price_service->getPrice($data['productUrl'], $data['sellerId']);
 
         $product = $entityManager->find(Product::class, $data['productId']);
-
-        $price = 1200;
 
         $productPrice = new Productprice();
         $productPrice->setDate(new \DateTime());

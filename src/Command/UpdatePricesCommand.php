@@ -54,20 +54,12 @@ class UpdatePricesCommand extends \Symfony\Component\Console\Command\Command
 
             if ($product->getTargetprice() !== null && $product->getTargetprice() >= $updated_price) {
                 $output->writeln('Price is lower than target price');
-                $user_product = $this->entityManager->getRepository(Userproduct::class)->findBy(['idProduct' => $product->getIdproduct()]);
+                $user_product = $this->entityManager->getRepository(Userproduct::class)->findOneBy(['idProduct' => $product->getIdproduct()]);
 
-            /*    $this->client->request(
+                $this->client->request(
                     'POST',
-                    'https://lesjardinsdeauville.4beez.agency/product-tracker/api/mail/send',
-                    [
-                        'json' => [
-                            'api_key' => 'd62585b7bee6d03016234ca363fe1501',
-                            'email' =>  $this->entityManager->getRepository(Userproduct::class)->findBy(['idProduct' => $product->getIdproduct()]),
-                            'subject' => 'Price is lower than target price',
-                            'body' => 'Price is lower than target price',
-                        ],
-                    ]
-                );*/
+                    'http://localhost:3000/mail/send/'.   $user_product->getUserUuid(),
+                );
 
             }
 
