@@ -1,4 +1,6 @@
 import { createRequire } from "module";
+import { callOrchestrator } from "./callAuth.js";
+
 const require = createRequire(import.meta.url);
 
 const mysql = require("mysql");
@@ -99,5 +101,9 @@ export const addProductInDb = (datas, callback) => {
                 '${currentDate}'
             )
         `, callback);
+
+        callOrchestrator(datas, idProduct);
     })
+
+    
 }
