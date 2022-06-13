@@ -43,3 +43,33 @@ export const callLoginApi = async (datas) => {
     return undefined;
   }
 };
+
+const splitSeller = (seller) => {
+  if (seller.includes("amazon"))
+    return 3;
+  
+  if (seller.includes("boulanger"))
+    return 2;
+
+  return 1;
+}
+
+export const callOrchestrator = async (datas, theProductId) => {
+  try {
+    return await axios
+      .post(`http://orchestrator-service:5000/getPrice`, {
+        api_key: '8ac7a909a23e4801c4c59cc5d828bc07',
+        sellerId: splitSeller(datas.productUrl),
+        productId: theProductId,
+        productUrl: datas.productUrl
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+  }
+  catch (err) {
+    console.log(err);
+    
+    return undefined;
+  }
+}
