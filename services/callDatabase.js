@@ -48,6 +48,12 @@ const getWebsiteId = (website, callback) => {
     connection.query(`SELECT id FROM Website WHERE nom LIKE '${website}'`, callback);
 }
 
+const getLastProductId = (callback) => {
+    const connection = createConnection();
+
+    connection.query('SELECT MAX(idProduct) as id FROM Product', callback);
+}
+
 export const addProductInDb = (datas, callback) => {
     const connection = createConnection();
 
@@ -64,15 +70,34 @@ export const addProductInDb = (datas, callback) => {
         let currentDate = new Date().toISOString().slice(0, 19).replace('T', ' ');
 
         connection.query(`INSERT INTO Product 
-        (nom, url, idWebsite, createdAt, updatedAt, target_price)
+        (nom, url, idWebsite, createdAt, updatedAt)
             VALUES (
                 '${datas.productName}',
                 '${datas.productUrl}',
                 ${websiteId},
                 '${currentDate}',
-                '${currentDate}', 
-                ${datas.priceLimit}
+                '${currentDate}'
                 )
+        ;`);
+    })
+
+    getLastProductId((err, rows) => {
+        if (err) throw err;
+
+        var rows = Object.values(JSON.parse(JSON.stringify(rows)));
+        var idProduct = rows[0].id;
+
+        let currentDate = new Date().toISOString().slice(0, 19).replace('T', ' ');
+        
+        connection.query(`INSERT INTO UserProduct 
+            (idProduct, userUUID, priceLimit, createdAt, updatedAt)
+            VALUES (
+                ${idProduct},
+                '${datas.userUUID}',
+                ${datas.priceLimit},
+                '${currentDate}',
+                '${currentDate}'
+            )
         `, callback);
     })
 }
