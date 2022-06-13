@@ -111,7 +111,8 @@ export const addProductInDbAction = (req, res) => {
         !datas.productName ||
         !datas.productUrl ||
         !datas.priceLimit ||
-        !datas.website
+        !datas.website ||
+        !datas.userUUID
         ) {
         return res
           .status(417)
