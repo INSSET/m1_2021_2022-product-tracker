@@ -1,5 +1,5 @@
 import {callRegisterApi, callLoginApi} from "../services/callAuth.js";
-import { getProductsByUserUUID, getProductById } from "../services/callDatabase.js";
+import { getProductsByUserUUID, getProductById, addProductInDb } from "../services/callDatabase.js";
 
 export const registerAction = async (req, res) => {
   if (
@@ -94,7 +94,7 @@ export const getProductByIdAction = (req, res) => {
     
             arrayRows.forEach( (row) => {
                 let bufferData = {}
-                bufferData.price = row.price.toFixed(2)
+                bufferData.price = row.price
                 bufferData.date = row.date
                 prices.push(bufferData);
             })
@@ -103,4 +103,26 @@ export const getProductByIdAction = (req, res) => {
     
             return res.status(200).json(datas);
         })
+}
+
+export const addProductInDbAction = (req, res) => {
+    let datas = req.body;
+    if (
+        !datas.productName ||
+        !datas.productUrl ||
+        !datas.priceLimit ||
+        !datas.website
+        ) {
+        return res
+          .status(417)
+          .json({ message: "Pas toutes les informations nécéssaires" });
+      }
+
+    
+      addProductInDb(datas, (err) => {
+        if (err) res.status(500);
+        
+        res.status(200).json({message: "1 row inserted"});
+      })
+    
 }
