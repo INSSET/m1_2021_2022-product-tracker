@@ -13,7 +13,7 @@ class AppTest extends \Symfony\Bundle\FrameworkBundle\Test\KernelTestCase
      */
     public function testGetPrice()
     {
-        $client = HttpClient::create();
+       // $client = HttpClient::create();
 
      /*   $response = $client->request('POST', 'http://localhost:8000/getPrice', [
             'body' => json_encode([
