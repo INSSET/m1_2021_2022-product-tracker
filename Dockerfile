@@ -29,6 +29,8 @@ RUN composer install
 
 RUN echo "0 * * * *  php /home/app/bin/console app:update-prices" >> /etc/crontab
 
+EXPOSE 5000
+
 CMD ["symfony", "server:start", "--port=5000"]
 
 
