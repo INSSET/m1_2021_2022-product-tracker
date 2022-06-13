@@ -22,22 +22,40 @@ class PriceService
     public function getBoulangerPrice(string $url)
     {
             $endpoint = sprintf('%s/getPrice/?url=%s', self::URL_BOULANGER, $url);
+            $response = $this->client->request('GET', $endpoint);
+            // get the content
+            $content = $response->getContent();
+            // decode the content
+            $data = json_decode($content, true);
+            // return the price
+            return $data['price'];
 
-             return $price = $this->client->request('GET', $endpoint);
     }
 
     public function getAliExpressPrice(string $url)
     {
         $endpoint = sprintf('%s/getPrice/?url=%s', self::URL_ALIEXPRESS, $url);
 
-        return $price = $this->client->request('GET', $endpoint);
+        $response = $this->client->request('GET', $endpoint);
+        // get the content
+        $content = $response->getContent();
+        // decode the content
+        $data = json_decode($content, true);
+        // return the price
+        return $data['price'];
     }
 
     public function getAmazonPrice(string $url)
     {
         $endpoint = sprintf('%s/getPrice/?url=%s', self::URL_AMAZON, $url);
 
-        return $price = $this->client->request('GET', $endpoint);
+        $response = $this->client->request('GET', $endpoint);
+        // get the content
+        $content = $response->getContent();
+        // decode the content
+        $data = json_decode($content, true);
+        // return the price
+        return $data['price'];
     }
 
 
