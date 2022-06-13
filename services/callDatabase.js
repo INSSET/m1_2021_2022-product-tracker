@@ -94,7 +94,7 @@ export const addProductInDb = (datas, callback) => {
         connection.query(`INSERT INTO UserProduct 
             (idProduct, userUUID, priceLimit, createdAt, updatedAt)
             VALUES (
-                ${idProduct},
+                ${idProduct} + 1,
                 '${datas.userUUID}',
                 ${datas.priceLimit},
                 '${currentDate}',
